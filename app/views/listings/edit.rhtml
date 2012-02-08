@@ -1,0 +1,13 @@
+<h1>Edit Listing</h1>
+
+<%= form_tag({ :action => 'update', :id => @listing },
+               :method => :post,
+               :multipart => true) %>
+
+<%= error_messages_for 'listing' %>
+
+<%= render :partial => 'form' %>
+
+<%= submit_tag 'Submit' %> or <%= link_to 'cancel', :action => 'show', :id => @listing %>
+
+<%= end_form_tag %>

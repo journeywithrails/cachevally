@@ -1,0 +1,22 @@
+<% if @results == nil %>
+<% elsif @results.empty? %>
+<div>
+  <p>Sorry, no results were found for "<strong><%=h @phrase %></strong>".<br/>
+  Try our <%= link_to 'Browse by City', :action => 'list_by_city' %> listing.</p>
+</div>
+<% elsif @number_match == 0 %>
+	<div><p>Number of matches was zero.</p></div>
+<% elsif @phrase.empty? %>
+  <div><p>Phrase was empty!</p></div>
+<% elsif @phrase.gsub(/' '/, '') == '' %>
+  <div><p>Phrase chomped to nothing.</p></div>
+<% else %>
+
+<div>
+  <p>Found (<%= @number_match %> <% if @number_match == 1 %>match<% else %>matches<% end %>)
+    for "<strong><%=h @phrase %></strong>"
+</div>
+
+<%= render :partial => 'result', :collection => @results %>
+
+<% end %>

@@ -1,0 +1,44 @@
+<% if @results == nil %>
+<% elsif @results.empty? %>
+  <p>'<%=h @phrase %>' not found</p>
+<% elsif @number_match == 0 %>
+  <p>Number of matches was zero.</p>
+<% elsif @phrase.empty? %>
+  <p>Phrase was empty!</p>
+<% elsif @phrase.gsub(/' '/, '') == '' %>
+  <p>Phrase chomped to nothing.</p>
+<% else %>
+  <p>Searched for "<strong><%=h @phrase %></strong>" (<%= @number_match %> <% if @number_match == 1 %>match<% else %>matches<% end %>):</p>
+
+<table class="index" cellpadding="0" cellspacing="0" border="0">
+<tr>
+  <th>Business Name</th>
+  <th>City</th>
+  <th>Editor</th>
+  <th>Actions</th>
+</tr>
+  <% for @listing in @results -%>
+<tr>
+  <td class="user"><%= image_tag 'coins.gif' if @listing.is_paid? %> <%= link_to @listing.business, :action => 'show', :id => @listing %></td>
+  <td><%= @listing.city %></td>
+  <td class="user"><% if @listing.user_id > 0 and @listing.editor_approved? -%>
+    <%= link_to @listing.user.name, {:controller => '/admin/account', :action => 'show', :id => @listing.user}, :popup => 'true', :class => 'popup' %> <span class="small">/ <%= @listing.user.username %></span></td>
+  <% end %></td>
+  <td class="action" style="font-size:11px;">
+    <%= image_tag 'edit.gif' %> <%= link_to 'edit', :action => 'edit', :id => @listing %>
+  <% if @listing.active? -%>
+    <%= image_tag 'inactive.gif' %> <%= link_to 'deactivate', :action => 'deactivate', :id => @listing %>
+  <% else -%>
+    <img src="accept.gif" width="16" height="16" alt=""/> <%= link_to 'activate', :action => 'activate', :id => @listing %>
+  <% end -%>
+  <%= image_tag 'delete.gif' %> 
+      <%= link_to 'delete',
+          {:action => 'destroy', :id => @listing },
+          :confirm => "Are you sure you want to DELETE \"#{@listing.business}\"?",
+          :post => true %>
+  </td>
+</tr>
+  <% end %>
+</table>
+
+<% end %>

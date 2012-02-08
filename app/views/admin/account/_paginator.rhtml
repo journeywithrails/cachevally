@@ -1,0 +1,9 @@
+<div class="paginator">
+[Displaying results <%=@user_pages.current.first_item%>-<%=@user_pages.current.last_item%>
+ of <%= @user_total.size %>]
+<%= link_to '&laquo; prev', { :page => @user_pages.current.previous } if @user_pages.current.previous %>
+<% if @user_pages.current.next and @user_pages.current.previous %> | <% end %>
+
+<%= link_to 'next &raquo;', { :page => @user_pages.current.next } if @user_pages.current.next %>
+
+</div>

@@ -1,0 +1,24 @@
+<% @result1 = result %>
+
+<div class="listing">
+
+	<div><a href="<%= url_for :action => 'show', :id => result %>">
+		<%= image_tag url_for_file_column("result1", "image", 'thumb') if result.image? %></a></div>
+
+	<div class="detail">
+	<h1><%= link_to result.business, :action => 'show', :id => result %></h1>
+	<p>
+    <% if result.tagline? -%><em><%= result.tagline %></em><br/><% end -%>
+	  <% if result.phone? -%><span style="color:#999;font-weight:bold">Tel: <%= result.format_phone(result.phone) %></span><br /><% end -%>
+	  <% if result.address? -%><%= result.address %> <% end -%>
+	  <% if result.city? %><%= result.city %>, <% end %><%= result.state %> <br/>
+	</p>
+	</div><!-- // div.detail -->
+  <% if result.specials.find_unexpired.size > 0 -%>
+  <div class="special_icon">
+    <%= link_to(image_tag('tag_green_money.png'), {:action => 'show', :subaction => 'specials', :id => result.id}, {:class=>'plain'} )%>
+  </div>
+  <% end -%>
+
+  <div class="clear">&nbsp;</div>
+</div>

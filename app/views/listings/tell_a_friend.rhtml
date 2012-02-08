@@ -1,0 +1,42 @@
+<h1>Tell A Friend!</h1>
+
+<p>We think CacheValleySearch is a great resource for anyone living in the
+  Cache Valley area. Use the form below to tell a friend about this website.</p>
+  
+<p>Here's the email we will sent on your behalf:</p>
+
+<p><em>I found a great website that let's you search for businesses and
+  services in the Cache Valley area. It's free for any business to add or
+  update their listing, and has "live search" functionality that makes it
+  quick and easy to find any business. Check it out!</em></p>
+
+<fieldset>
+
+<%= form_tag :action => 'create_friend' %>
+
+<table>
+<tr>
+  <th>Friend's Name:</th>
+  <td><%= text_field 'friend', 'name' %>
+</tr>
+<tr>
+  <th>Friend's E-mail:</th>
+  <td><%= text_field 'friend', 'email' %>
+</tr>
+<tr>
+  <th>Your Name:</th>
+  <td><%= text_field 'friend', 'sender_name' %>
+</tr>
+<tr>
+  <th>Your E-mail:</th>
+  <td><%= text_field 'friend', 'sender_email' %>
+</tr>
+<tr>
+  <td></td>
+  <td><%= submit_tag 'Send Email' %></td>
+</tr>
+</table>
+
+<%= end_form_tag %>
+
+</fieldset>

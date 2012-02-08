@@ -1,0 +1,112 @@
+<h1>Edit Listing</h1>
+
+<%= form_tag({ :action => 'update', :id => @listing },
+               :multipart => true) %>
+
+<%= error_messages_for 'listing' %>
+
+<h3>Editor Status</h3>
+
+<table class="fieldset">
+<tr>
+  <th>Associated Editor</th>
+  <td><%= @listing.user.name if @listing.user %></td>
+</tr>
+<% if @listing.user -%>
+<tr>
+  <th>Editor Status</th>
+  <% if @listing.editor_approved? -%>
+  <td><%= image_tag 'accept.gif' %> Approved (<%= link_to 'unapprove', {:action => 'deny_editor', :id => @listing}, :post => true %>)</td>
+  <% else -%>
+  <td><%= image_tag 'cancel.gif' %> Not Approved (<%= link_to 'approve', {:action => 'approve_editor', :id => @listing}, :post => true %>)</td>
+  <% end -%>
+<% end -%>
+</table>
+
+
+
+<table class="fieldset">
+<tr>
+  <th><label for="listing_business">Business Name</label></th>
+  <td><%= text_field 'listing', 'business'  %></td>
+</tr>
+<tr>
+  <th><label for="listing_tagline">Tagline</label></th>
+  <td><%= text_field 'listing', 'tagline'  %></td>
+</tr>
+<tr>
+  <th><label for="listing_address">Address</label></th>
+  <td><%= text_field 'listing', 'address'  %></td>
+</tr>
+<tr>
+  <th><label for="listing_address2">Address2</label></th>
+  <td><%= text_field 'listing', 'address2'  %></td>
+</tr>
+<tr>
+  <th><label for="listing_city">City</label></th>
+  <td><%= text_field 'listing', 'city'  %></td>
+</tr>
+<tr>
+  <th><label for="listing_state">State</label></th>
+  <td><%= text_field 'listing', 'state'  %></td>
+</tr>
+<tr>
+  <th><label for="listing_zip">Zip</label></th>
+  <td><%= text_field 'listing', 'zip'  %></td>
+</tr>
+<tr>
+  <th><label for="listing_phone">Phone</label></th>
+  <td><%= text_field 'listing', 'phone'  %></td>
+</tr>
+<tr>
+  <th><label for="listing_fax">Fax</label></th>
+  <td><%= text_field 'listing', 'fax'  %></td>
+</tr>
+<tr>
+  <th><label for="listing_phone2">Phone2</label></th>
+  <td><%= text_field 'listing', 'phone2'  %></td>
+</tr>
+<tr>
+  <th><label for="listing_email">Email</label></th>
+  <td><%= text_field 'listing', 'email'  %></td>
+</tr>
+<tr>
+  <th><label for="listing_website">Website</label></th>
+  <td><%= text_field 'listing', 'website'  %></td>
+</tr>
+<tr>
+  <th>Active?</th>
+  <td><%= check_box 'listing', 'active'  %><label for="listing_active">Listing is active</label></td>
+</tr>
+</table>
+
+<h3>Paid Listing</h3>
+
+<table class="fieldset">
+<tr>
+  <th><label for="listing_date_paid_start">Paid Start Date</label></th>
+  <td><%= date_select 'listing', 'date_paid_start' %></td>
+</tr>
+<tr>
+  <th><label for="listing_date_paid_expires">Paid Expiry Date</label></th>
+  <td><%= date_select 'listing', 'date_paid_expires' %></td>
+</tr>
+</table>  
+
+
+<h3>Edit Full Listing</h3>
+
+<p><%= link_to 'Edit Full Business Listing', :controller => '/listings', :action => 'edit', :id => @listing %></p>
+
+
+<h3>Current Image</h3>
+
+<p><% if !@listing.image.nil? -%>
+<%= image_tag( url_for_file_column('listing', 'image') ) %><% end -%></p>
+
+<p><label class="desc" for="listing_image">Upload New Image</label><br/>
+<%= file_column_field 'listing', 'image' %></p>
+
+
+  <br/><%= submit_tag 'Save Changes' %> or <%= link_to 'cancel', :action => 'show', :id => @listing %>
+<%= end_form_tag %>

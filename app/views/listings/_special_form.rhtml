@@ -1,0 +1,54 @@
+<%= error_messages_for 'special' %>
+
+<%= form.hidden_field :listing_id, :value => @special.listing_id ||= params[:id] %>
+<%# form.hidden_field :listing_id, :value => params[:id] %>
+<%= form.hidden_field :special_type, :value => 'Lunch' %>
+<table id="add_image">
+<tr>
+	<th>Title:<span class="red">*</span></th>
+	<td><%= form.text_field :title %></td>
+</tr>
+<tr>
+	<th>Description:</th>
+	<td><%= form.text_area :description, :rows => 3 %></td>
+</tr>
+<tr>
+	<th>Price:</th>
+  <td><span class="help">eg. "$12.99" or "25% off"</span><br/>
+    <%= form.text_field :price %></td>
+</tr>
+<tr>
+	<th>Expires on:<span class="red">*</span></th>
+	<td><span class="help">Up to 30 days from today</span><br/>
+	  <%= form.date_select :date_expires, :order => [:day, :month, :year] %></td>
+<tr>
+	<th>Image:</th>
+  <td> <!-- use attachment_fu -->
+    <% if !@special.special_images.empty? %>
+      <%# @special.special_images.each do |asset| %>
+      <%= image_tag( @special.special_images.first.public_filename('mini') ) %> <%= check_box_tag :remove_image_fu %> remove image<br/>
+      <%# end %>
+    <% elsif !(@special.nil? or @special.image.nil?) -%>
+		  <%= image_tag( url_for_file_column('special', 'image', 'thumb') ) %> <%= check_box_tag :remove_image %> remove image<br/>
+    <% end -%>
+    
+    <%# form.file_field :uploaded_data %>
+    <%= file_field :special_image, :uploaded_data %>
+  </td>
+<%
+=begin %>
+  <td> <!-- use file_column -->
+    <% if !(@special.nil? or @special.image.nil?) -%>
+		<%= image_tag( url_for_file_column('special', 'image', 'thumb') ) %> <%= check_box_tag :remove_image %> remove image<br/>
+    <% end -%>
+    <%= file_column_field 'special', 'image' %></td>
+<%
+=end %>
+</tr>
+<tr>
+  <td></td>
+  <td><br/><%= submit_tag 'Submit', {:class => 'submit'} %>
+    <% if params[:controller] != 'listings' %>or <%= link_to 'cancel', :controller => 'listings', :action => 'show', :id => @listing, :subaction => 'specials' %><% end %>
+  </td>
+</tr>
+</table>

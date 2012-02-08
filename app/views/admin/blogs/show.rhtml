@@ -1,0 +1,19 @@
+<h1><%= @blog.title %></h1>
+
+<table class="fieldset">
+<tr>
+  <th>Date Published</th>
+  <td><%= @blog.date_published %></td>
+</tr>
+<tr>
+  <th>Abstract</th>
+  <td><%= @blog.abstract %></td>
+</tr>
+<tr>
+  <th>Body</th>
+  <td><%= @blog.body %></td>
+</tr>
+</table>
+
+<p><%= link_to 'Edit', :action => 'edit', :id => @blog.id %> |
+  <%= link_to 'Back', :action => 'list' %></p>

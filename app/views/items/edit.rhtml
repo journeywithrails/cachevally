@@ -1,0 +1,23 @@
+<h1>Edit Image</h1>
+
+<%= error_messages_for :item %>
+
+<%# link_to image_tag(@item.public_filename(:mini)), @item.public_filename %><br/>
+
+<% form_for( :item, :url  => {:controller => '/items', :action => 'update', :id => params[:id]}, 
+                    :html => { :multipart => true }) do |f| -%>
+  <table class="fieldset">
+  <tr>
+    <th><label for="item">Image File</label></th>
+    <td><%= link_to image_tag(@item.public_filename(:mini)), @item.public_filename %></td>
+  </tr>
+  <tr>
+    <th><label for "item_caption">Caption</label></th>
+    <td><%= f.text_field :caption %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><%= submit_tag 'Update' %></td>
+  </tr>
+  </table>
+<% end -%>

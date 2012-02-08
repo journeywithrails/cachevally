@@ -1,0 +1,7 @@
+<h1>Editing Blog Entry</h1>
+
+<%= start_form_tag :action => 'update', :id => @blog %>
+  <%= error_messages_for 'blog' %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag ' Save ' %> or <%= link_to 'cancel', :action => 'list' %>
+<%= end_form_tag %>

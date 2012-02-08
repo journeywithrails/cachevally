@@ -1,0 +1,24 @@
+<%= hidden_field 'asset', 'listing_id', :value => @listing.id %>
+<%= hidden_field 'asset', 'asset_type', :value => img_type ||= @asset.asset_type %>
+<table id="add_image">
+<tr>
+  <th>Image:</th>
+  <td>
+    <% if @asset.image? %>
+      <%= image_tag(@asset.public_filename) %><br/>
+    <% elsif !@asset.image.nil? %>
+      <%= image_tag( url_for_file_column('asset', 'image', 'thumb') ) %><br/>
+    <% end %>
+    <%= file_field :asset, :uploaded_data %></td>
+    <%# file_column_field 'asset', 'image' %></td>
+
+</tr>
+<tr>
+  <th>Caption:</th>
+  <td><%= text_field 'asset', 'caption' %></td>
+</tr>
+<tr>
+  <td></td>
+  <td><%= submit_tag 'Submit', {:class => 'submit'} %> or <%= link_to 'cancel', :action => 'cancel_edit_asset', :id => params[:listing_id], :subaction => params[:img_type].downcase %></td>
+</tr>
+</table>

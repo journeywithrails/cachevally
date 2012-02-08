@@ -1,0 +1,128 @@
+<h3>Business Listings - Active</h3>
+
+<div id="search-form">
+<%= start_form_tag({ :action   => "" },
+                   { :onSubmit => "Element.show('spinner');"} ) %>
+<label for="searchtext" id="searchlabel"><strong>Live Search:</strong></label>
+<%= text_field_tag :searchtext %> <img alt="spinner" id="spinner" src="/images/spinner.gif" style="display:none;" />
+<%= end_form_tag %>
+
+<%= observe_field(:searchtext,
+                  :with => "'phrase='+encodeURIComponent(value)", # pass value in params[:phrase]
+                  :frequency => 0.5,
+                  :update => :search_hits,
+                  :loading => "Element.show('spinner')",
+                  :complete => "Element.hide('spinner')",
+                  :url => { :action => 'live_search' }) %>
+
+<div id="search_hits"></div>
+</div>
+<br/>
+
+
+<h3>Pending Editor Requests</h3>
+
+<% if @pending_listings.size == 0 -%>
+<p>There are no pending editor requests.</p><br/>
+<% else -%>
+<p>The following users have requested to be approved to edit these business listings.</p>
+
+<table class="index" cellpadding="0" cellspacing="0" border="0">
+<tr>
+  <th>Requested By</th>
+  <th>For</th>
+  <th>Action</th>
+</tr>
+<% for listing in @pending_listings -%>
+<tr>
+  <td class="user"><%= link_to listing.user.name, {:controller => '/admin/account', :action => 'show', :id => listing.user}, :popup => 'true', :class => 'popup' %> <span class="small">/ <%= listing.user.username %></span></td>
+  <td class="user"><%= link_to listing.business, {:action => 'show', :id => listing}, :popup => 'true' %></td>
+  <td class="action">
+    <img src="/images/accept.gif" width="16" height="16" alt=""/> <%= link_to 'approve', {:action => 'approve_editor', :id => listing}, :post => true %>&nbsp;
+    <img src="/images/delete.gif" width="16" height="16" alt=""/>
+      <%= link_to 'deny', {:action => 'deny_editor', :id => listing},
+          :confirm => 'Are you sure you want to deny this editor request?',
+          :post => true %>
+  </td>
+</tr>
+<% end -%>
+</table>
+<% end -%>
+
+
+<h3>Business Listings - Inactive</h3>
+
+<% if @inactive_listings.size == 0 -%>
+<p>There are no pending editor requests.</p><br/>
+<% else -%>
+
+<%= render :partial => 'inactive_paginator' %>
+<table class="index" cellpadding="0" cellspacing="0" border="0">
+<tr>
+  <th>Business Name</th>
+  <th>City</th>
+  <th>Editor</th>
+  <th>Modify</th>
+</tr>
+<% for listing in @inactive_listings -%>
+<tr>
+  <td class="user"><%= link_to listing.business, :action => 'show', :id => listing %></td>
+  <td><%= listing.city %></td>
+  <td class="user"><% if listing.user_id > 0 and listing.editor_approved? %>
+    <%= link_to listing.user.name, {:controller => '/admin/account', :action => 'show', :id => listing.user}, :popup => 'true', :class => 'popup' %> <span class="small">/ <%= listing.user.username %></span></td>
+  <% end %></td>
+  <td class="action" style="font-size:11px;">
+  <%= image_tag '/images/accept.gif' %>
+      <%= link_to 'activate', {:action => 'activate', :id => listing}, :post => true %>
+  <%= image_tag '/images/delete.gif' %> 
+      <%= link_to 'delete',
+          {:action => 'destroy', :id => listing },
+          :confirm => "Are you sure you want to DELETE \"#{listing.business}\"?",
+          :post => true %>
+  </td>
+</tr>
+<% end -%>
+</table>
+<%= render :partial => 'inactive_paginator' %>
+<% end %>
+
+
+<h3>Upgraded Business Listings (Paid)</h3>
+
+<% if @paid_listings.size == 0 -%>
+<p>There are no upgraded (paid) listings.</p><br/>
+<% else -%>
+
+<%= render :partial => 'paid_paginator' %>
+<table class="index" cellpadding="0" cellspacing="0" border="0">
+<tr>
+  <th>Business Name</th>
+  <th>City</th>
+  <th>Editor</th>
+  <th>Modify</th>
+</tr>
+<% for listing in @paid_listings -%>
+<tr>
+  <td class="user"><%= image_tag 'coins.gif' %> <%= link_to listing.business, :action => 'show', :id => listing %></td>
+  <td><%= listing.city %></td>
+  <td class="user"><% if listing.user_id > 0 and listing.editor_approved? %>
+    <%= link_to listing.user.name, {:controller => '/admin/account', :action => 'show', :id => listing.user}, :popup => 'true', :class => 'popup' %> <span class="small">/ <%= listing.user.username %></span></td>
+  <% end %></td>
+  <td class="action" style="font-size:11px;">
+    <%= image_tag 'edit.gif' %> <%= link_to 'edit', :action => 'edit', :id => listing %>
+    <%= image_tag '/images/delete.gif' %> 
+      <%= link_to 'delete',
+          {:action => 'destroy', :id => listing },
+          :confirm => "Are you sure you want to DELETE \"#{listing.business}\"?",
+          :post => true %>
+  </td>
+</tr>
+<% end -%>
+</table>
+<%= render :partial => 'paid_paginator' %>
+<% end %>
+
+
+
+<p><a href="<%= url_for :controller => '/listings', :action => 'new' %>">
+  <img src="/images/btn_add_listing.gif" width="110" height="31" alt="Add Listing"></a></p>

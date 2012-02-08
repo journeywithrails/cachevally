@@ -1,0 +1,9 @@
+<h1>Images</h1>
+
+<p>Click the image thumbnail to view the full image. Copy the URL for the image size you want to display in a document.</p>
+
+<div>
+<%= render :partial => 'item', :collection => @items %>
+  <div style="clear:both;">&nbsp;</div>
+</div>
+<p><%= link_to 'Add Image', :action => 'new' %></p>

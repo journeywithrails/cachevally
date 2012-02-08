@@ -1,0 +1,19 @@
+<h1>Matched Imported Listings</h1>
+
+<p class="help">[ <%= link_to 'All Listings', :action => 'list' %> |
+Matched Listings |
+<%= link_to 'Unmatched Listing', :action => 'list_unmatched' %>]</p><br/>
+
+<%= will_paginate @imports %>
+
+<table class="index" cellpadding="0" cellspacing="0" border="0">
+<tr>
+  <th>Business</th>
+  <th>Address</th>
+  <th>Phone</th>
+  <th>Imported to&#8230;</th>
+</tr>
+<%= render :partial => 'import', :collection => @imports %>
+</table>
+
+<%= will_paginate @imports %>

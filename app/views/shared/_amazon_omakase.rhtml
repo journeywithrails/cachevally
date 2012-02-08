@@ -1,0 +1,13 @@
+<div id="ad_amazon_omakase">
+
+<% if ENV['RAILS_ENV'] == 'development' %>
+<strong>Amazon Omakase:</strong><br/>
+<div style="border:1px dotted silver;">468 Wide Ad<br/></div>
+</div>
+<% else %>
+<script type="text/javascript"><!--
+  amazon_ad_tag = "dsbb-20";  amazon_ad_width = "468";  amazon_ad_height = "60";  amazon_ad_logo = "hide";  amazon_ad_border = "hide";//--></script>
+<script type="text/javascript" src="http://www.assoc-amazon.com/s/ads.js"></script>
+<% end -%>
+
+</div>

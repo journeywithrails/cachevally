@@ -1,0 +1,32 @@
+<%= render :partial => 'shared/ad_vertical_banner' %>
+
+<h2>Brochure</h2>
+
+<%= render :partial => 'images_gallery' %>
+<%= render :partial => 'add_new_asset', :locals  => {:img_type => 'BROCHURE'} %>
+<%# render :partial => 'add_new_image', :locals  => {:img_type => 'BROCHURE'} %>
+
+<!--
+<div>
+
+<% if !@listing.brochure1.nil? -%>
+<div class="img-float">
+<div class="img-shadow">
+  <a href="<%= url_for_file_column('listing', 'brochure1') %>" rel="lightbox[menu]" class="plain" title="<%=h @listing.brochure1_caption %>">
+    <%= image_tag( url_for_file_column('listing', 'brochure1', 'thumb') ) %></a></div>
+<p><%= @listing.brochure1_caption %></p>
+</div>
+<% end -%>
+
+<% if !@listing.brochure2.nil? -%>
+<div class="img-float">
+<div class="img-shadow">
+  <a href="<%= url_for_file_column('listing', 'brochure2') %>" rel="lightbox[menu]" class="plain" title="<%=h @listing.brochure2_caption %>">
+    <%= image_tag( url_for_file_column('listing', 'brochure2', 'thumb') ) %></a></div>
+<p><%= @listing.brochure2_caption %></p>
+</div>
+<% end -%>
+
+<div class="clear">&nbsp;</div>
+</div>
+-->

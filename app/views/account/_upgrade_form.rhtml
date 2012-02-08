@@ -1,0 +1,136 @@
+<table id="comparison" cellspacing="0" cellpadding="3">
+
+<form name="paypalForm1" target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post" >
+<input type="hidden" name="on0" value="Listing_ID">
+<input type="hidden" name="os0" value="<%= @listing.business %> [#<%= @listing.id %>]">
+<input type="hidden" name="cmd" value="_xclick">
+<input type="hidden" name="business" value="webmaster@cachevalleysearch.com">
+<input type="hidden" name="item_name" value="Cache Valley Search - Listing Upgrade (1-year)">
+<input type="hidden" name="item_number" value="cvsearch_12mos">
+<input type="hidden" name="amount" value="240.00">
+<input type="hidden" name="no_shipping" value="1">
+<input type="hidden" name="return" value="http://cachevalleysearch.com/account/upgrade_thanks">
+<input type="hidden" name="no_note" value="1">
+<input type="hidden" name="currency_code" value="USD">
+<input type="hidden" name="lc" value="US">
+<input type="hidden" name="bn" value="PP-BuyNowBF">
+<tr class="plan">
+  <td style="vertical-align:middle;">1-year Upgraded Listing: <span class="price">$240</span></td>
+  <td>
+    <input type="image" style="vertical-align:middle" src="https://www.paypal.com/en_US/i/btn/x-click-but23.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+    <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+  </td>
+  <td colspan="2"><span class="price" style="font-weight:normal;"><em>Best Value!</em></td>
+</tr>
+</form>
+
+<form name="paypalForm2" target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post" >
+<input type="hidden" name="on0" value="Listing_ID">
+<input type="hidden" name="os0" value="<%= @listing.business %> [#<%= @listing.id %>]">
+<input type="hidden" name="cmd" value="_xclick">
+<input type="hidden" name="business" value="webmaster@cachevalleysearch.com">
+<input type="hidden" name="item_name" value="Cache Valley Search - Listing Upgrade (6-month)">
+<input type="hidden" name="item_number" value="cvsearch_6mos">
+<input type="hidden" name="amount" value="150.00">
+<input type="hidden" name="no_shipping" value="1">
+<input type="hidden" name="return" value="http://cachevalleysearch.com/account/upgrade_thanks">
+<input type="hidden" name="no_note" value="1">
+<input type="hidden" name="currency_code" value="USD">
+<input type="hidden" name="lc" value="US">
+<input type="hidden" name="bn" value="PP-BuyNowBF">
+<tr class="plan">
+  <td>6-month Upgraded Listing: <span class="price">$150</span></td>
+  <td>
+    <input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but23.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+    <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+  </td>
+  <td colspan="2"></td>
+</tr>
+</form>
+
+<tr><th colspan="4" style="border-top:3px solid #ccc;">&nbsp;</th></tr>
+
+<%= render :partial => 'comparison_chart' %>
+
+<!-- <tr>
+  <td class="legend"><em>Available Listing Plans &raquo;</em></td>
+  <th class="title">Basic <span style="font-weight:normal;">(free)</span></th>
+  <th class="title">Upgraded</th>
+</tr>
+<tr>
+  <th class="subtitle" colspan="3">Business Search</th>
+</tr>
+<tr>
+  <th>Included in "live search"</th>
+  <td><%= image_tag 'accept.gif' %></td>
+  <td><%= image_tag 'accept.gif' %></td>
+</tr>
+<tr>
+  <th>Included in "browse by city" listings</th>
+  <td><%= image_tag 'accept.gif' %></td>
+  <td><%= image_tag 'accept.gif' %></td>
+</tr>
+<tr>
+  <th class="subtitle" colspan="3">Business Listing Detail</th>
+</tr>
+<tr>
+  <th>Business name</th>
+  <td><%= image_tag 'accept.gif' %></td>
+  <td><%= image_tag 'accept.gif' %></td>
+</tr>
+<tr>
+  <th>Full Address</th>
+  <td><%= image_tag 'accept.gif' %></td>
+  <td><%= image_tag 'accept.gif' %></td>
+</tr>
+<tr>
+  <th>Tagline / slogan</th>
+  <td>&#8212;</td>
+  <td><%= image_tag 'accept.gif' %></td>
+</tr>
+<tr>
+  <th>Website URL (hyperlinked)</th>
+  <td>&#8212;</td>
+  <td><%= image_tag 'accept.gif' %></td>
+</tr>
+<tr>
+  <th>Business Listing Photo</th>
+  <td>&#8212;</td>
+  <td><%= image_tag 'accept.gif' %></td>
+</tr>
+<tr>
+  <th>Detailed business description</th>
+  <td><%= image_tag 'accept.gif' %></td>
+  <td><%= image_tag 'accept.gif' %></td>
+</tr>
+<tr>
+  <th>"Services" information</th>
+  <td>&#8212;</td>
+  <td><%= image_tag 'accept.gif' %></td>
+</tr>
+<tr>
+  <th>"Hours of Business" information</th>
+  <td><%= image_tag 'accept.gif' %></td>
+  <td><%= image_tag 'accept.gif' %></td>
+</tr>
+<tr>
+  <th>Display menu photos (optional)</th>
+  <td>&#8212;</td>
+  <td><%= image_tag 'accept.gif' %></td>
+</tr>
+<tr>
+  <th>Display brochure photos (optional)</th>
+  <td>&#8212;</td>
+  <td><%= image_tag 'accept.gif' %></td>
+</tr>
+<tr>
+  <th>Display miscellaneous photos (optional)</th>
+  <td>&#8212;</td>
+  <td><%= image_tag 'accept.gif' %></td>
+</tr>
+<tr>
+  <th>Google Maps integration</th>
+  <td><%= image_tag 'accept.gif' %></td>
+  <td><%= image_tag 'accept.gif' %></td>
+</tr>
+</table> -->

@@ -1,0 +1,79 @@
+<div id="thumbs_nav" style="width:450px;">
+
+<% if @images %>
+<p class="help"><%= @images.size > 0 ? 'Click thumbnail to see larger image' : 'No images available.' %></p>
+
+<%
+=begin %>
+
+<ul id="assets">
+<% @images.each do |asset| %>
+<li id="asset_<%= asset.id %>">
+<% if asset.image? %>
+<%= link_to(image_tag(asset.public_filename(:thumb))) %><br />
+<% end %>
+<%= link_to(asset.filename, asset_path(asset)) %> (<%= link_to "Delete", asset_path(asset), :method => :delete, :confirm => "are you sure?"%>)
+</li>
+<% end %>
+</ul>
+
+<%
+=end %>
+
+
+<ul id="asset_list">
+  <% @images.each do |@asset| -%>
+  <li id="asset_<%= @asset.id %>">
+    <div class="img-float">
+      <% if @asset.image? or !@asset.image.nil? -%>
+        <% if user_logged_in? and ( is_admin? or (@listing.user_id == @user.id and @listing.editor_approved?) ) -%>
+          <%= link_to( image_tag('btn_blue_edit.png'), {:action => 'edit_asset', :id => @asset.id, :listing_id => @listing.id, :img_type => @asset.asset_type}, :title => 'edit this image', :class=>'plain' ) %>
+          <%= link_to( image_tag('btn_blue_delete.png'), { :action => 'destroy_asset', :id => @asset.id, :listing_id => @listing.id },
+                :confirm=>'Are you sure you want to delete this image?', :post => 'true', :title => 'Delete this image', :class => 'plain' ) %>
+          <%= link_to( image_tag('arrow_blue_left.png'), { :action => 'move_higher', :id => @asset }, :title => 'move left/up', :class=>'plain' ) %>
+          <%= link_to( image_tag('arrow_blue_right.png'), { :action => 'move_lower', :id => @asset }, :title => 'move right/down', :class=>'plain' ) %>
+          <%= link_to( image_tag('arrow_blue_top.png'), { :action => 'move_top', :id => @asset }, :title => 'move to top', :class=>'plain' ) %>
+          <%= link_to( image_tag('arrow_blue_bottom.png'), { :action => 'move_bottom', :id => @asset }, :title => 'move to bottom', :class=>'plain' ) %>
+        <% end -%>
+      <div class="img-shadow">
+
+      <% if @asset.image? %>
+        <a href="<%= @asset.public_filename() %>" rel="lightbox[img]" class="plain" title="<%=h @asset.caption %>">
+          <%= image_tag(@asset.public_filename(:thumb)) %></a>
+      <% elsif !@asset.image.nil? %>
+        <a href="<%= url_for_file_column('asset', 'image') %>" rel="lightbox[img]" class="plain" title="<%=h @asset.caption %>">
+          <%= image_tag( url_for_file_column('asset', 'image', 'thumb') ) %></a>
+      <% end %>
+
+      </div>
+      <p><%= @asset.caption %><br/></p>
+      <% end -%>
+    </div>
+  </li>
+  <% end %>
+</ul>
+
+
+<%
+=begin %>
+<a href="<%= url_for_file_column('asset', 'image') %>" rel="lightbox[img]" class="plain" title="<%=h @asset.caption %>">
+<%= link_to(image_tag(asset.public_filename(:thumb)), { :rel='lightbox[img]', :class => 'plain', :title => @asset.caption } ) %>
+  <%= image_tag( url_for_file_column('asset', 'image', 'thumb') ) %></a>
+<%
+=end %>
+
+
+
+
+
+<%
+=begin %>
+<%= sortable_element( 'asset_list', 
+                      :url => { :action => "sort", :id => @listing }, 
+                      :complete => visual_effect(:highlight, 'asset_list')
+                    ) %> 
+<%
+=end %>
+<div style="clear:left">&nbsp;</div>
+</div>
+<% end %>

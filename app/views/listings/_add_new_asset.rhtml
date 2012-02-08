@@ -1,0 +1,34 @@
+<% if user_logged_in? and ( is_admin? or (@listing.user_id == @user.id and @listing.editor_approved?) ) -%>
+  <% if @images && @images.size >= @max_images -%>
+<p class="image_warning"><em>Image limit reached. No more images can be added.</em></p>
+  <% else -%>
+
+<h2>Add Image</h2>
+
+<%= error_messages_for :asset %>
+<% form_for( :asset,
+             :url => { :action => 'create_asset', :id => @listing },
+             :html => { :multipart => true }) do |form| %>
+<%# form_for(:asset, :url => assets_path, :html => { :multipart => true }) do |form| %>
+<%# hidden_field 'asset', 'listing_id', :value => @listing.id %>
+<%= hidden_field 'asset', 'listing_id', :value => @listing.id %>
+<%= hidden_field 'asset', 'asset_type', :value => img_type %>
+
+<table id="add_image">
+<tr>
+  <th><label for="uploaded_data">Image:</label></th>
+  <td><%= form.file_field :uploaded_data %></td>
+</tr>
+<tr>
+  <th>Caption:</th>
+  <td><%= form.text_field :caption %></td>
+</tr>
+<tr>
+  <td></td>
+  <td><%= submit_tag 'Submit', {:class => 'submit'} %></td>
+</tr>
+</table>
+<% end -%>
+
+  <% end -%>
+<% end -%>

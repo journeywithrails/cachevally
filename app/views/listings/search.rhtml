@@ -1,0 +1,32 @@
+<%= render :partial => 'featured_special'%>
+<br/>
+<h1>Search Results</h1>
+
+<table>
+<tr>
+  <td style="width:50%">
+    <% form_tag :controller => 'listings', :action => 'search' do -%>
+    <%= hidden_field_tag 'q', params[:q] %>
+    Sort results by: <%= select_tag(
+      :sort, 
+      options_for_select( [ ['business name', 'business'], 'city' ], params[:sort]),
+      :onchange => "window.location='#{url_for()}?q=#{params[:q]}&sort='+this.options[this.selectedIndex].value"
+    ) %>
+    <% end %>
+    
+    
+    
+  </td>
+  <td style="width:50%">
+    <% form_tag :controller => 'listings', :action => 'search' do -%>
+    Search again: <%= text_field_tag 'q' %> <%= submit_tag 'Search' %><br/>
+    <% end -%>
+  </td>
+</tr>
+</table>
+
+<p>Found <strong><%= @number_match %></strong> <% if @number_match > 1 %>matches<%else%>match<%end%> for <strong>"<%= @phrase %>"</strong>:</p>
+
+<div id="search_results">
+<%= render :partial => 'result', :collection => @results %>
+</div>

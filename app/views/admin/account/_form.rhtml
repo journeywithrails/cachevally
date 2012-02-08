@@ -1,0 +1,28 @@
+<%= error_messages_for 'user' %>
+
+<table>
+<tr>
+  <th><label for="user_login">Username:</label></th>
+  <td><%= text_field "user", "username", :size => 30 %></td>
+</tr>
+<tr>
+  <th><label for="user_password">Password:</label></th>
+  <td><%= password_field "user", "password", :size => 30 %></td>
+</tr>
+<tr>
+  <th><label for="user_password_confirmation">Confirm password:</label></th>
+  <td><%= password_field "user", "password_confirmation", :size => 30 %></td>
+</tr>
+<tr>
+  <th><label for="user_name">Full Name:</label></th>
+  <td><%= text_field "user", "name", :size => 40 %></td>
+</tr>
+<tr>
+  <th><label for="user_email">Email:</label></th>
+  <td><%= text_field "user", "email", :size => 40 %></td>
+</tr>
+<tr>
+  <td></td>
+  <td><input type="submit" value="Signup &#187;" class="primary" /></td>
+</tr>
+</table>

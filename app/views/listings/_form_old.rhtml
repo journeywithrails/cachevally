@@ -1,0 +1,93 @@
+<%= error_messages_for 'listing' %>
+
+<!--[form:listing]-->
+
+<li>
+<label class="desc" for="listing_business">Business Name</label>
+<div class="full">
+<%= text_field 'listing', 'business', :class => 'field text large' %>
+</div>
+</li>
+
+<li>
+<label class="desc" for="address">Address</label>
+<div class="full">
+<%= text_field 'listing', 'address', :class => "field text large" %>
+<p class="field ">Street Address</p>
+</div>
+
+<div class="full">
+<%= text_field 'listing', 'address2', :class => "field text large" %>
+<p class="field ">Address Line 2</p>
+</div>
+
+<div class="mid">
+<%= text_field 'listing', 'city', :class => "field text large" %>
+<p class="field">City</p>
+</div>
+
+<div class="mid">
+<%= text_field 'listing', 'state', :class => "field text large" %>
+<p class="field">State</p>
+</div>
+
+<div class="mid">
+<%= text_field 'listing', 'zip', :class => "field text large" %>
+<p class="field ">Zip Code</p>
+</div>
+</li>
+
+<li>
+<div class="left">
+<label class="desc" for="listing_phone">Phone</label>
+<%= text_field 'listing', 'phone', :class => "field text" %>
+<p class="field">(###) ###-####</p>
+</div>
+</li>
+
+<div id="add-more-link" style="border-bottom:1px dotted #999; padding-bottom:4px;"
+     onclick="new Effect.BlindDown($('detail'));new Effect.BlindUp($('add-more-link'));">
+  <a href="javascript:void(0)"><strong>+ Add More Information</strong></a></div>
+
+<div id="detail" style="display:none; background-color:#efefef; border-bottom:1px dotted #999; border-top:1px dotted #999;">
+
+<li>
+<label class="desc" for="listing_email">Email</label>
+<div class="full">
+<%= text_field 'listing', 'email', :class => "field text large" %>
+</div>
+</li>
+
+<li>
+<label class="desc" for="listing_website">Website</label>
+<div class="full">
+<%= text_field 'listing', 'website', :class => "field text large" %>
+</div>
+</li>
+
+<li>
+<div class="right">
+<label class="desc" for="listing_fax">Fax</label>
+<%= text_field 'listing', 'fax', :class => "field text" %>
+<p class="field">(###) ###-####</p>
+</div>
+</li>
+
+<li>
+<label class="desc" for="listing_phone2">Toll-free Phone</label>
+<div>
+<%= text_field 'listing', 'phone2', :class => "field text" %>
+<p class="field">(###) ###-####</p>
+</div>
+</li>
+
+<li>
+<label class="desc" for="listing_category_id">Business Category</label>
+<div>
+<%= collection_select 'listing', 'category_id', @categories, 'id', 'category', :class => "field select medium" %>
+</div>
+</li>
+
+</div><!-- // detail -->
+
+<!--[eoform:listing]-->

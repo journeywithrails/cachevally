@@ -1,0 +1,17 @@
+<div id="tabs">
+<ul>
+  <li <%if params[:controller] == 'listings' and params[:action] =~ /^list$|index/ %>class="active"<%end%>><%= link_to 'home', :controller => '/listings', :action => 'list' %></li>
+  <li <%if params[:action] == 'list_by_city'%>class="active"<%end%>><%= link_to 'browse by city', :controller => '/listings', :action => 'list_by_city' %></li>
+  <li <%if params[:controller] == 'specials'%>class="active"<%end%> id="specials_tab">
+    <%= link_to 'local specials',
+      { :controller => '/specials',
+      :action => 'list'},
+      {:id => 'xspecials_tab'} %></li>
+  <li><%= link_to( "grocery coupons", "http://print.coupons.com/alink.asp?go=12629yk5510") %></li>
+<%
+=begin
+  <li <%if params[:action] == 'new'%>class="active"<%end%>><%= link_to 'submit new listing', :controller => '/listings', :action => 'new' %></li>
+<%
+=end %>
+</ul>
+</div>

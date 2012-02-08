@@ -1,0 +1,52 @@
+<script type="text/javascript">
+var ol_fgcolor = "#0099ff";
+var ol_bgcolor = "#003399";
+var ol_textcolor = "#ffffff";
+var ol_textfont = "Verdana,Arial,Helvetica";
+var ol_textsize = "11px";
+var ol_cellpad = "2,5";
+</script>
+<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<script language="JavaScript" src="/javascripts/overlib.js"><!-- overLIB (c) Erik Bosrup --></script>
+
+<h1>Submit New Listing</h1>
+
+<!--
+<%= error_messages_for 'listing' %>
+-->
+
+<%= form_tag({ :action => 'create' }, :multipart => true) %>
+
+<p>Please complete the following form to add your business to the directory.
+New submissions are reviewed before being added.</p>
+</div>
+
+<%= hidden_field 'listing', 'date_paid_expires', :value => '2007-01-01' %>
+<%= hidden_field 'listing', 'date_paid_start', :value => '2007-01-01' %>
+
+<%= render :partial => 'form' %>
+
+<%
+=begin %>
+<div class="captcha">
+  <%= hiddenCaptchaInput(@captcha) %>
+  <br/><label class="desc" for="listing_captcha_code">Enter Verification Code [<a href="javascript:void(0);"
+    onmouseover="return overlib('To help deter spambots, please enter the numbers displayed in the graphic image.');"
+    onmouseout="return nd();"
+>?</a>]</label><br/>
+  <%= captchaImgTag(@captcha) %><br/>
+<div class="left">
+  <input type="text" name="captcha_code" class="field text large" />
+  <p class="help">Enter the code shown above</p>
+</div>
+</div>
+<%
+=end %>
+
+<br/><p><%= check_box :listing, :terms_of_agreement %> <label for="listing_terms_of_agreement">I have read and agree to the <%= link_to 'Terms of Agreement', {:controller => 'about', :action => 'terms_of_agreement'}, {:target => '_blank'} %></label></p>
+
+<div class="buttons">
+<br><%= submit_tag "Submit Listing", :class => "button" %> or <%= link_to 'cancel', :action => 'list' %>
+</div>
+
+<%= end_form_tag %>

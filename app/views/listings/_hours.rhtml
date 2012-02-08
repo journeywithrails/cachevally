@@ -1,0 +1,39 @@
+<%= render :partial => 'shared/ad_vertical_banner' %>
+
+<h2>Business Hours</h2>
+
+<% if @listing.hours_description -%>
+<p><%= @listing.hours_description %></p>
+<% end %>
+
+<table>
+<tr>
+  <th>Monday</th>
+  <td><%= @listing.mon_hours %></td>
+</tr>
+<tr>
+  <th>Tuesday</th>
+  <td><%= @listing.tue_hours %></td>
+</tr>
+<tr>
+  <th>Wednesday</th>
+  <td><%= @listing.wed_hours %></td>
+</tr>
+<tr>
+  <th>Thursday</th>
+  <td><%= @listing.thu_hours %></td>
+</tr>
+<tr>
+  <th>Friday</th>
+  <td><%= @listing.fri_hours %></td>
+</tr>
+<tr>
+  <th>Saturday</th>
+  <td><%= @listing.sat_hours %></td>
+</tr>
+<tr>
+  <th>Sunday</th>
+  <td><%= @listing.sun_hours %></td>
+</tr>
+</table>
+

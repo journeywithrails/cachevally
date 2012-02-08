@@ -1,0 +1,8 @@
+<ul id="tour_nav">
+  <li<%if params[:action] == "homepage"%> class="active"<%end%>><%= link_to 'Homepage', :action => 'homepage' %></li>
+  <li<%if params[:action] == "browse_by_city"%> class="active"<%end%>><%= link_to 'Browse By City', {:action => 'browse_by_city'}, {:class => 'active'} %></li>
+  <li<%if params[:action] == "listing_detail"%> class="active"<%end%>><%= link_to 'Listing Detail', :action => 'listing_detail' %></li>
+  <li<%if params[:action] == "submit_new_listing"%> class="active"<%end%>><%= link_to 'Submit New Listing', {:action => 'submit_new_listing'} %></li>
+  <li<%if params[:action] == "is_this_your_listing"%> class="active"<%end%>><%= link_to 'Is This Your Listing?', :action => 'is_this_your_listing' %></li>
+  <li<%if params[:action] == "my_account"%> class="active"<%end%>><%= link_to 'My Account', :action => 'my_account' %></li>
+</ul>

@@ -1,0 +1,47 @@
+<div style="width:615px" align="center">
+<div style="width:300px; float:left; text-align:left;"><h1 style="color:red; margin-bottom: 5px;">Local Specials</h1>
+<p style="padding: 0; margin:0;">Find special deals and coupons posted by local businesses.</p></div>
+<div style="width: 300px; float:right;margin-top:10px;">
+	<form style="" action="http://www.feedburner.com/fb/a/emailverify" method="post" target="popupwindow" onsubmit="window.open('http://www.feedburner.com', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+		<p style="text-align: right; margin: 0; padding:0;"><strong style="font-size:95%">Sign up now</strong><br />
+		  <span class="help">to get newly-posted local specials<br/>
+		  delivered to your email inbox.</span><br/><input type="text" style="width:140px" name="email" value="Enter e-mail" onClick="this.value=''"/>
+		<input type="hidden" value="http://feeds.feedburner.com/~e?ffid=1082668" name="url"/>
+		<input type="hidden" value="Specials/Coupons from CacheValleySearch.com" name="title"/>
+		<input type="hidden" name="loc" value="en_US"/>
+		<input type="submit" value="Subscribe" />
+		<a href="http://feeds.feedburner.com/cvs_specials" rel="alternate" type="application/rss+xml">
+	<p style="text-align: right; margin: 0; padding:0; font-size: 10px"><%= link_to "Learn More", :action => "subscribe_email" %>&nbsp;&nbsp;&nbsp;<img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" alt="" style="vertical-align:middle;border:0"/></a>&nbsp;<a href="http://feeds.feedburner.com/cvs_specials" rel="alternate" type="application/rss+xml">RSS Feed</a></p>
+	</form>
+</div>
+<a href="http://www.anrdoezrs.net/click-3000674-10530902" target="_top">
+<img src="http://www.awltovhc.com/image-3000674-10530902" width="468" height="60" alt="Join the Ipsos Survey Panel " border="0"/></a>
+<br />
+</div>
+
+<div class="sorter" style="clear:both;">
+<% form_tag :action => 'list' do %>
+Sort: <%= select_tag(
+  :sort, 
+  options_for_select( [ ['business name', 'business'], 'price', ['expiry date', 'expiry'] ], params[:sort]),
+  :onchange => "window.location='#{url_for()}?sort='+this.options[this.selectedIndex].value"
+) %>
+<% end %>
+</div>
+
+<%= will_paginate @specials %>
+<div class="coupon_list">
+<%= render :partial => 'special', :collection => @specials %>
+<div class="clear-left">&nbsp;</div>
+</div>
+<%= will_paginate @specials %>
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/cvs_specials" />
+
+<hr />
+
+<div style="float: left;">
+<a href="http://www.jdoqocy.com/click-3000674-10498051" target="_top">Get Paid to Blog About the Things You Love!</a>
+<img src="http://www.ftjcfx.com/image-3000674-10498051" width="1" height="1" border="0"/><br />
+<a href="http://print.coupons.com/alink.asp?go=12667oy0510">Grocery Coupons for Cache Valley Utah.  Save Hundreds of Dollars!</a>
+</div>

@@ -1,0 +1,21 @@
+<%= error_messages_for 'blog' %>
+
+<table class="fieldset">
+<tr>
+  <th><label for="blog_title">Title:</label></th>
+  <td><%= text_field "blog", "title", :size => 60 %></td>
+</tr>
+<tr>
+  <th><label for="blog_abstract">Abstract:</label></th>
+  <td><%= text_field "blog", "abstract", :size => 60 %></td>
+</tr>
+<tr>
+  <th><label for="blog_body">Body:</label></th>
+  <td><%= text_area "blog", "body", :rows => 10, :cols => 60 %></td>
+</tr>
+<tr>
+  <th><label for="blog_date_published">Date Published:</label></th>
+  <td><%= date_select "blog", "date_published" %></td>
+</tr>
+</table>
+<br/>

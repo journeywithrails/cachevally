@@ -1,0 +1,18 @@
+<h1>Blog Entries</h1>
+
+<%= render :partial => 'paginator' %>
+
+<table class="index">
+<tr>
+  <th>Title</th>
+  <th>Date Published</th>
+  <th>Modify</th>
+</tr>
+<%= render :partial => 'blog', :collection => @blogs %>
+</table>
+
+<%= render :partial => 'paginator' %>
+
+<br/>
+<p><a href="<%= url_for :action => 'new' %>">
+<%= image_tag 'btn_add_item.gif' %></a></p>

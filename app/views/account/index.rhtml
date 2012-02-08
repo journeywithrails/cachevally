@@ -1,0 +1,106 @@
+<h1>My Account</h1>
+
+<h2>User Info</h2>
+
+<table class="fieldset">
+<tr>
+  <th>Username:</th>
+  <td><%= @user.username %></td>
+  <td class="help">Cannot be changed.</td>
+</tr>
+<tr>
+  <th>Name:</th>
+  <td><%= in_place_editor_field :user, :name %></td>
+  <td class="help">Click field to edit</td>
+</tr>
+<tr>
+  <th>Email:</th>
+  <td><%= in_place_editor_field :user, :email %></td>
+  <td class="help">Click field to edit</td>
+</tr>
+<tr>
+  <th>Password:</th>
+  <td><%= link_to 'Change password', :action => 'edit_password' %></td>
+  <td class="help">Select a new password</td>
+</tr>
+<tr>
+  <th>Newsletter:</th>
+<% if @user.subscribed? -%>
+  <td><%= image_tag 'accept.gif' %> Subscribed (<%= link_to 'unsubscribe', :action => 'update_subscription', :action_type => 'unsubscribe' %>)</td>
+<% else -%>
+  <td><%= image_tag 'inactive.gif' %> Not subscribed (<%= link_to 'subscribe', :action => 'update_subscription', :action_type => 'subscribe' %>)</td>
+<% end %>
+  <td class="help">Change subscription</td>
+</tr>
+<tr>
+  <th>Resources:</th>
+  <td><%= image_tag 'star_gold.png' %> <%= link_to "Business Resources", :action => 'resources' %></td>
+  <td class="help">Premium business resource library</td>
+</tr>
+<tr>
+  <th class="help">Last login:</th>
+  <td class="help"><%= @user.login_on.strftime("%a.%b.%y at %H:%m:%S%p") %></td>
+  <td class="help"></td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript" src="http://www.tkqlhce.com/placeholder-149790156?target=_blank&mouseover=N"></script>
+&nbsp;&nbsp;&nbsp;<script type="text/javascript" language="javascript" src="http://www.dpbolvw.net/placeholder-149790146?target=_blank&mouseover=N"></script>
+&nbsp;&nbsp;&nbsp;<script type="text/javascript" language="javascript" src="http://www.anrdoezrs.net/placeholder-149790154?target=_blank&mouseover=N"></script>
+<br />
+<b>FREE 30 Day Trial</b> + 10% Off!  <a href="http://www.tkqlhce.com/click-3000674-10520495" target="_blank"><U>Learn More </U></a>
+<img src="http://www.ftjcfx.com/image-3000674-10520495" width="1" height="1" border="0"/>
+
+<% if !@listings.nil? -%>
+
+<% if @listings.size > 1 -%>
+<h2>Business Listings</h2>
+<% else -%>
+<h2>Business Listing</h2>
+<% end -%>
+
+<table class="index">
+<tr>
+  <th>Business</th>
+  <th>Status</th>
+  <th>Edit</th>
+  <th>Stats</th>
+  <th>Free / Upgraded</th>
+</tr>
+<% for listing in @listings -%>
+<tr>
+  <td><%= link_to listing.business, :controller => 'listings', :action => 'show', :id => listing.id %></td>
+  <% if listing.editor_approved? -%>
+  <td><%= image_tag 'accept.gif' %> Approved</td>
+  <td><%= link_to 'edit', :controller => 'listings', :action => 'edit', :id => listing %></td>
+  <td><%= link_to 'stats', :controller => 'listings', :action => 'stats', :id => listing %>
+  <% elsif listing.editor_approved == 9 -%>
+  <td><%= image_tag 'cancel.gif' %> Denied</td>
+  <td class="help" colspan="2">Your request to edit this listing was not approved.</td>  
+  <% else -%>
+  <td><%= image_tag 'time.gif' %> Approval pending...</td>
+  <td class="help" colspan="2">Your request is being reviewed</td>
+  <% end -%>
+  <td>
+    <% if !listing.nil? and
+          listing.date_paid_start != nil and
+          listing.date_paid_expires != nil and
+          listing.date_paid_start? and
+          listing.date_paid_expires? and
+          listing.date_paid_start <= Date.today and
+          listing.date_paid_expires > Date.today and
+          listing.editor_approved? %>
+      Upgraded Listing
+    <% elsif listing.editor_approved? %>
+      <%= link_to_image 'btn_upgrade.gif', :action => 'upgrade', :listing_id => listing.id %>
+    <% else %>
+      --
+    <% end %>
+  </td>
+
+</tr>
+<% end -%>
+</table>
+
+<% end -%>
+
+<p><%= link_to 'Submit another listing', :controller => 'listings', :action => 'new' %></p>

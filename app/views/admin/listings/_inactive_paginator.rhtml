@@ -1,0 +1,6 @@
+<div class="paginator">
+[Results: <%=@inactive_listing_pages.current.first_item%>-<%=@inactive_listing_pages.current.last_item%>]
+<%= link_to '&laquo; prev', { :page => @inactive_listing_pages.current.previous } if @inactive_listing_pages.current.previous %>
+<% if @inactive_listing_pages.current.next and @inactive_listing_pages.current.previous %> | <% end %>
+<%= link_to 'next &raquo;', { :page => @inactive_listing_pages.current.next } if @inactive_listing_pages.current.next %>
+</div>

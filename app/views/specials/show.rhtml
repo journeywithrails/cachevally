@@ -1,0 +1,38 @@
+<h1>Special</h1>
+
+<p>Brought to you by:
+  <strong><%= link_to @special.listing.business, (url_for :controller => 'listings', :action => 'show', :id => @special.listing) %></strong>
+</p>
+
+<% if @special.is_expired? -%>
+
+<h2 class="red">Sorry, this coupon or special has already expired.</h2>
+
+<p><a href="/specials/list">View other local specials.</a></p>
+
+<% else -%>
+<% if !@special.image.nil? -%>
+  <div style="float:left;margin-right:10px;margin-bottom:40px;">
+    <%= image_tag( url_for_file_column('special', 'image', 'thumb'), {:class => 'thumb'} ) %>
+  </div>
+<% elsif !@special.special_images.empty? %>
+  <div style="float:left;margin-right:10px;margin-bottom:40px;">
+    <%= image_tag( @special.special_images.first.public_filename('mini'), {:class => 'thumb'} ) %>
+  </div>
+<% end -%>
+
+<h2><%= @special.title %></h2>
+
+<p><%= @special.description %></p>
+
+<p class="price"><%= @special.price %></p>
+
+<div class="print">
+  <%= link_to(
+      image_tag('printer2.gif', :alt => "Print coupon", :title => "Print coupon"),
+      {:controller => 'specials', :action => 'print', :id => @special.id},
+      :class => 'plain' ) %>
+  <%= link_to 'Print coupon', :controller => 'specials', :action => 'print', :id => @special.id %>
+</div>
+
+<% end -%>

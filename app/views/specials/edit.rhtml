@@ -1,0 +1,9 @@
+<h1>Edit Special</h1>
+
+<%# form_tag( { :action => 'update', :id => @special}, :multipart => true )%>
+<% form_for :special, 
+            :url  => { :controller => :specials, :action => :update, :id => @special }, 
+            :html => { :multipart => true } do |form| %> 
+<%# render :partial => '/listings/special_form', :locals => { :form => form, :id => @special.listing_id } %>
+<%= render :partial => '/listings/special_form', :locals => { :form => form } %>
+<% end -%>

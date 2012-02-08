@@ -1,0 +1,19 @@
+<h2>Email <%= @listing.business %></h2>
+
+<%= start_form_tag :controller => 'listings', :action => 'send_email_to_business', :id => @listing %>
+
+<p>Please ensure your email address is correct to we can respond to your
+  inquiry.</p>
+  
+<p><strong>Name</strong><br/>
+<%= text_field_tag 'name', nil, :class => 'txt_lg' %></p>
+
+<p><strong>Email</strong><br/>
+<%= text_field_tag 'email', nil, :class => 'txt_lg' %></p>
+  
+<p><strong>Message</strong><br/>
+<%= text_area_tag 'message', nil, :size => '40x10' %></p>
+  
+<%= submit_tag 'Submit' %> or <a href="#" class="lbAction" rel="deactivate">cancel</a>
+
+</form>

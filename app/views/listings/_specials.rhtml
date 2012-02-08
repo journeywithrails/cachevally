@@ -1,0 +1,76 @@
+<%= render :partial => 'shared/ad_vertical_banner' %>
+
+<h2>Specials</h2>
+
+<div id="specials">
+
+<%
+=begin %>
+
+<% if !@specials.nil? %>
+<% for special in @specials %>
+  <%= render :partial => "item", :locals => { :item => special, :controller_name => 'special'  } %>
+<% end %>
+<% end %>
+
+<%
+=end %>
+
+<% if !@specials.nil? %>
+<% @specials.each do |@s| -%>
+
+  <% if is_owner_or_admin?(@listing) %>
+	<div class="delete-tab">&nbsp;
+    <%# link_to 'edit', :controller => 'specials', :action => 'edit', :id => @s.id, @listing.id %>&nbsp; 
+    <%= link_to 'edit', :controller => 'specials', :action => 'edit', :id => @s.id %>&nbsp; 
+	  <%= link_to 'delete', { :controller => 'specials', :action => 'destroy', :id => @s.id, :listing_id => @listing.id },
+	      :confirm => 'Are you sure you want to delete this special?',
+	      :class => 'plain',
+	      :post => 'true' %>
+	</div>
+	<% end -%>
+
+	<div class="special<%= " expired" if @s.is_expired? %>">
+    <% if @s.is_expired? %><div class="expired-notice">** EXPIRED **</div><% end %>
+		<div class="image">
+      <% if !@s.special_images.empty? %>
+        <%= image_tag( @s.special_images.first.public_filename('mini') ) %>
+			<% elsif !@s.image.nil? -%>
+  			<%= image_tag( url_for_file_column('s', 'image', 'thumb') ) %>
+      <%# elsif @s.special_images %>
+        <%# @s.special_images.each do |asset| %>
+          <%#= image_tag( asset.public_filename('mini') ) %>
+        <%# end %>
+			<% else -%>
+			<div class="prop"></div>
+			<% end -%>
+		</div>
+
+		<div class="content">
+			<div class="price"><%# free_when_zero @s.cost %><%= @s.price %></div>
+			<span class="title">
+        <%= @s.title %>
+			</span><br/>
+			<p class="description">
+        <%= @s.description %>
+			</p>
+			<% if !@s.date_expires.nil? %><strong>Valid until:</strong> <%= @s.date_expires %><% end %>
+		</div>
+		<div class="clear-left"></div>
+	</div>
+
+<% end %>
+<% end %>
+	<div class="clear-left"></div>
+</div>
+<br/>
+
+<!-- <%= render :partial => 'images_gallery' %> -->
+
+<%= render :partial => 'add_special', :locals  => {} %>
+
+<%
+=begin %>
+<%= render :partial => 'add_item', :locals => { } %>
+<%
+=end %>

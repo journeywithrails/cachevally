@@ -1,0 +1,8 @@
+<div class="breadcrumbs">
+  <%= link_to 'home', :controller => 'listings' %> &raquo;
+  <%= link_to 'news &amp; announcements', :controller => 'blogs' %>
+</div>
+
+<h1><%= @blog.title %></h1>
+
+<%= @blog.body %>

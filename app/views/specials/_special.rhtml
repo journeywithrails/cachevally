@@ -1,0 +1,61 @@
+<% @s = special -%>
+<% has_image = !(special.image.nil? or special.image == '') -%>
+<div class="coupon_wrap">
+<div class="coupon">
+<div class="inner">
+  <% if !(@s.nil? or @s.image.nil?) -%>
+    <%= link_to(
+      image_tag( url_for_file_column('s', 'image', 'thumb'), {:class => 'thumb'} ),
+      url_for(:controller => 'listings', :action => 'show', :subaction => 'specials', :id => special.listing ) ) -%>
+  <% elsif @s.special_images %>
+    <% @s.special_images.each do |asset| %>
+      <%= link_to(
+        image_tag(asset.public_filename('mini'), {:class => 'thumb'} ),
+        url_for(:controller => 'listings', :action => 'show', :subaction => 'specials', :id => special.listing ) ) -%>
+    <% end %>
+  <% end -%>
+  <div class="cost">&nbsp;<%= special.price %></div>
+  <!-- <div class="cost">&nbsp;<%# free_when_zero special.cost %></div> -->
+  <!-- <div class="print"><%= link_to(image_tag('printer2.gif',:alt => "Print coupon", :title => "Print coupon"), :controller => 'specials', :action => 'print', :id => special.id) %></div> -->
+  <div class="print">
+    <%= link_to(image_tag('printer2.gif',:alt => "Print coupon", :title => "Print coupon"), {:controller => 'specials', :action => 'print', :id => special.id}, {:class => 'plain'}) %>
+    <%= link_to(image_tag('btn_email.png',:alt => "Email coupon", :title => "Email coupon"), {:controller => 'specials', :action => 'forward_to_a_friend', :id => special.id}, {:class => 'plain'}) %>
+  </div>
+  <div class="business"><%= link_to(truncate(special.listing.business, (has_image ? 29-(special.price.size+1) : 40-(special.price.size+1)) ), :controller => 'listings', :action => 'show', :id => special.listing.id ) %></div>
+  <span class="title"><%= link_to(truncate(special.title, (has_image ? 25 : 37) ), :controller => 'specials', :action => 'show', :id => special.id) %></span><br/>
+  <span class="description"><%= truncate(special.description, (has_image ? 58  : 91)) %></span><br/>
+  <!-- <span class="expiry"><strong>expires:</strong> <%= special.date_expires %></span><br/> -->
+</div>
+</div>
+</div>
+
+<%
+=begin %>
+
+<div class="coupon_wrap">
+<div class="coupon">
+  <% if !(special.image == nil or special.image == '') -%>
+  <% @s = special -%>
+  <%= link_to(
+      image_tag(
+        url_for_file_column('s', 'image', 'thumb'), {:class => 'thumb'} ),
+      url_for(:controller => 'listings', :action => 'show', :subaction => 'specials', :id => special.listing ) ) -%>
+  <% end -%>
+  <div class="cost"><%= free_when_zero special.cost %></div>
+  <div class="business"><%= link_to h(truncate(special.listing.business, 25)),
+        url_for(
+          :controller => 'listings',
+          :action => 'show',
+          :subaction => 'specials',
+          :id => special.listing ) %></div>
+  <div class="title"><%= h(truncate(special.title, 30)) %></div>
+  <div class="offer"><%= h(truncate(special.description, 70)) %></div>
+  <div class="expiry"><%= special.date_expires == Date.new(2999, 12, 31) ? '' : '(expires: ' << special.date_expires.to_s << ')' %></div>
+  <div class="tools">
+    <%= link_to(image_tag('printer2.gif'), :controller => 'specials', :action => 'print', :id => special.id) %>
+  </div>
+</div>
+</div>
+
+<%
+=end %>

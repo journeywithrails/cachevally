@@ -1,0 +1,229 @@
+<%= error_messages_for 'listing' %>
+
+<% if params["action"] != 'new' and @listing.is_paid? -%>
+<p><strong style="color:green;">Upgraded Listing</strong></p>
+<% else -%>
+<p><strong style="color:silver;">Basic <%= "Plus" if @listing.is_deluxe? %> Listing</strong>
+<% if params["action"] == 'edit' and !@listing.is_paid? -%>
+<br/><%= link_to_image 'btn_upgrade.gif', {:controller => 'account', :action => 'upgrade', :listing_id => @listing.id}, {:class => 'plain'} %>
+<% end -%>
+</p>
+<% end -%>
+
+
+<fieldset>
+<legend id="business">Business Information</legend>
+
+<p class="help">This section contains general information about your business, and will always
+be visible at the top of your business listing page.</p>
+
+<table>
+<tr>
+  <th width="115px;"><label for="listing_business">Business Name</label></th>
+  <td>
+    <%= text_field 'listing', 'business', {:class => 'text txt_lg'} unless params[:action] == 'edit' %>
+    <%= @listing.business if params[:action] == 'edit' %>
+  </td>
+</tr>
+<tr>
+  <th><label for="listing_tagline">Tagline</label></th>
+  <td><%= text_field 'listing', 'tagline', {:class => 'text txt_lg'} %></td>
+</tr>
+<tr>
+  <th><label for="listing_address">Address</label></th>
+  <td><%= text_field 'listing', 'address', {:class => 'text txt_lg'} %></td>
+</tr>
+<tr>
+  <th><label for="listing_address2">Address2</label></th>
+  <td><%= text_field 'listing', 'address2', {:class => 'text txt_lg'} %></td>
+</tr>
+<tr>
+  <th><label for="listing_city">City</label></th>
+  <td><%= text_field 'listing', 'city', {:class => 'text txt_md'} %></td>
+</tr>
+<tr>
+  <th><label for="listing_state">State</label></th>
+  <td><%= text_field 'listing', 'state', {:class => 'text txt_sm'} %></td>
+</tr>
+<tr>
+  <th><label for="listing_zip">Zip</label></th>
+  <td><%= text_field 'listing', 'zip', {:class => 'text txt_sm'} %></td>
+</tr>
+<tr>
+  <td> </td>
+  <td class="help">Please enter full phone number, including area code</td>
+</tr>
+<tr>
+  <th><label for="listing_phone">Phone</label></th>
+  <td><%= text_field 'listing', 'phone', {:class => 'text txt_sm'} %></td>
+</tr>
+<tr>
+  <th><label for="listing_phone2">Toll-Free</label></th>
+  <td><%= text_field 'listing', 'phone2', {:class => 'text txt_sm'} %></td>
+</tr>
+<tr>
+  <th><label for="listing_fax">Fax</label></th>
+  <td><%= text_field 'listing', 'fax', {:class => 'text txt_sm'} %></td>
+</tr>
+<tr>
+  <th><label for="listing_email">Email</label></th>
+  <td><%= text_field 'listing', 'email', {:class => 'text txt_lg'} %></td>
+</tr>
+<tr>
+  <td></td>
+  <td class="help">Specify only the URL (eg. www.mywebsite.com). Do not include the "http://" prefix.</td>
+</tr>
+<tr>
+  <th><label for="listing_website">Website</label></th>
+  <td><%= text_field 'listing', 'website', {:class => 'text txt_lg'} %></td>
+</tr>
+<tr>
+  <td></td>
+  <td class="help">
+You may add one or more keywords to your listing (separated by spaces) to aid people
+in finding you. Keywords must be appropriate and pertinent.
+  </td>
+</tr>
+<tr>
+  <th><label for="listing_keywords">Keywords</label></th>
+  <td><%= text_field 'listing', 'keywords', {:class => 'text txt_lg'} %></td>
+</tr>
+<tr>
+  <td></td>
+<% if params["action"] != 'new' -%>
+  <td class="help">
+This image will appear beside your business name and address on your business
+listing detail page.
+  </td>
+<% else -%>
+  <td></td>
+<% end -%>
+</tr>
+<tr>
+  <th>Image</th>
+  <td><%= file_column_field 'listing', 'image' %></td>
+</tr>
+<% if @listing and params["action"] != 'new' and @listing.image and !@listing.image.blank? -%>
+<tr>
+  <td></td><td class="help" style="padding:0 0 4px 2px;">
+  Current: <%= @listing.short_filename(@listing.image) %> 
+  <%= link_to '[x] delete', {:action => 'destroy_file', :id => @listing, :file => 'image' }, :confirm => 'Are you sure?', :post => true %></td>
+</tr>
+<% end -%>
+</table>
+
+</fieldset>
+
+
+<fieldset>
+<legend id="about">About</legend>
+<p><%= check_box 'listing', 'show_about', {"onclick", "Element.toggle('about_detail');"} %> <label for="listing_show_about">Show "about" tab on listing page</label></p>
+<div id="about_detail" style="display:<% if @listing.show_about? %>block<% else %>none<% end %>">
+  <p class="help">This section contains more detail about your business. Your can include
+    whatever information you see fit. You can apply formatting using Textile 
+    (<a href="javascript:void(0);" onclick="Element.toggle('txt_about');"><strong>toggle help</strong></a>).</p>
+  <div id="txt_about" class="textile_help" style="display:none;">
+    <%= render :partial => 'shared/textile_help' %>
+  </div>
+  <p><%= text_area 'listing', 'about', {'cols' => 60, 'rows' => 10, :class => 'textarea'} %></p>
+</div><!-- // about_detail -->
+</fieldset><!-- // about -->
+
+<fieldset>
+<legend id="services">Services</legend>
+<p><%= check_box 'listing', 'show_services', {"onclick", "Element.toggle('services_detail');"} %> <label for="listing_show_services">Show "services" tab on listing page</label></p>
+<div id="services_detail" style="display:<% if @listing.show_services? %>block<% else %>none<% end %>">
+  <p class="help">This section contains information about the services offered by your business.
+    You can apply formatting using Textile
+    (<a href="javascript:void(0);" onclick="Element.toggle('txt_srvc');"><strong>toggle help</strong></a>).</p>
+  <div id="txt_srvc" class="textile_help" style="display:none;">
+    <%= render :partial => 'shared/textile_help' %>
+  </div>
+  <p><%= text_area 'listing', 'services', {'cols' => 60, 'rows' => 10, :class => 'textarea'} %></p>
+</div><!-- // services_detail -->
+</fieldset><!-- // services -->
+
+<fieldset>
+<legend id="hours">Hours</legend>
+<p><%= check_box 'listing', 'show_hours', {"onclick", "Element.toggle('hours_detail');"} %> <label for="listing_show_hours">Show "hours" tab on listing page</label></p>
+<div id="hours_detail" style="display:<% if @listing.show_hours? %>block<% else %>none<% end %>">
+  <p class="help">Please add any additional detail regarding your hours. (eg. "Closed on holidays")</p>
+  <table>
+  <tr>
+    <th><label for="listing_hours_description">Additional Detail</label></th>
+    <td><%= text_field 'listing', 'hours_description', :class => 'txt_lg' %></td>
+  </tr>
+  </table>
+  <p class="help">This section lists your business hours. Please enter the hours you are open each day. (eg. "8am - 5pm")</p>
+  <table>
+  <tr>
+    <th><label for="listing_mon_hours">Monday</label></th>
+    <td><%= text_field 'listing', 'mon_hours' %></td>
+  </tr>
+  <tr>
+    <th><label for="listing_tue_hours">Tuesday</label></th>
+    <td><%= text_field 'listing', 'tue_hours' %></td>
+  </tr>
+  <tr>
+    <th><label for="listing_wed_hours">Wednesday</label></th>
+    <td><%= text_field 'listing', 'wed_hours' %></td>
+  </tr>
+  <tr>
+    <th><label for="listing_thu_hours">Thursday</label></th>
+    <td><%= text_field 'listing', 'thu_hours' %></td>
+  </tr>
+  <tr>
+    <th><label for="listing_fri_hours">Friday</label></th>
+    <td><%= text_field 'listing', 'fri_hours' %></td>
+  </tr>
+  <tr>
+    <th><label for="listing_sat_hours">Saturday</label></th>
+    <td><%= text_field 'listing', 'sat_hours' %></td>
+  </tr>
+  <tr>
+    <th><label for="listing_sun_hours">Sunday</label></th>
+    <td><%= text_field 'listing', 'sun_hours' %></td>
+  </tr>
+  </table>
+</div><!-- // hours_detail -->
+</fieldset><!-- // hours -->
+
+<fieldset>
+<legend id="menu">Menu</legend>
+<p><%= check_box 'listing', 'show_menu', {"onclick", "Element.toggle('menu_detail');"} %> <label for="listing_show_menu">Show "menu" tab on listing page</label></p>
+<div id="menu_detail" style="display:<% if @listing.show_menu? %>block<% else %>none<% end %>">
+  <p class="help">Menu images can be uploaded and managed on your business listing page</p>
+</div><!-- // menu_detail -->
+</fieldset><!-- // menu -->
+
+<fieldset>
+<legend id="brochure">Brochure</legend>
+<p><%= check_box 'listing', 'show_brochure', {"onclick", "Element.toggle('brochure_detail');"} %> <label for="listing_show_brochure">Show "brochure" tab on listing page</label></p>
+<div id="brochure_detail" style="display:<% if @listing.show_brochure? %>block<% else %>none<% end %>">
+  <p class="help">Brochure images can be uploaded and managed on your business listing page</p>
+</div><!-- // brochure_detail -->
+</fieldset><!-- // brochure -->
+
+<fieldset>
+  <legend id="images">Specials</legend>
+  <p><%= check_box 'listing', 'show_specials', {"onclick", "Element.toggle('specials_detail');"} %> <label for="listing_show_specials">Show "specials" tab on listing page</label></p>
+  <div id="specials_detail" style="display:<% if @listing.show_specials? %>block<% else %>none<% end %>">
+    <p class="help">Specials can be added and managed on your business listing page</p>
+  </div><!-- // specials_detail -->
+</fieldset><!-- // specials -->
+
+<fieldset>
+<legend id="images">Images</legend>
+<p><%= check_box 'listing', 'show_images', {"onclick", "Element.toggle('images_detail');"} %> <label for="listing_show_images">Show "images" tab on listing page</label></p>
+<div id="images_detail" style="display:<% if @listing.show_images? %>block<% else %>none<% end %>">
+  <p class="help">Images can be uploaded and managed on your business listing page</p>
+</div><!-- // images_detail -->
+</fieldset><!-- // images -->
+
+<fieldset>
+<legend id="map">Map</legend>
+<p><%= check_box 'listing', 'show_map', {"onclick", "Element.toggle('map_detail');"} %> <label for="listing_show_map">Show "map" tab on listing page</label></p>
+<div id="map_detail" style="display:<% if @listing.show_map? %>block<% else %>none<% end %>">
+  <p class="help">&lt;no further customizations available&gt;</p>
+</div><!-- // map_detail -->
+</fieldset><!-- // map -->

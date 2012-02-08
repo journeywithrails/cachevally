@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title><%= @special.title %> // <%= @special.listing.business %> // Cache Valley Business Directory</title>
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/ico" />
+  <%= stylesheet_link_tag 'coupon', :media => 'all' %>
+  <%= stylesheet_link_tag 'coupon_print', :media => 'print' %>
+</head>
+
+<body id="<%= params[:controller] %>">
+<div id="wrap">
+<div id="content">
+<div id="flash">
+  <% if flash[:notice] -%><p class="notice"><%= flash[:notice] %></p><% end -%>
+    <% if flash[:error] -%><p class="error"><%= flash[:error] %></p><% end -%>
+</div>
+<%= yield %>
+<div id="footer">Copyright &copy; 2006-<%=DateTime.now.year%>, Media Perfection, LC. All rights reserved.</div><!-- // footer -->
+</div><!-- // content -->
+</div><!-- // wrap -->
+
+</body>
+</html>

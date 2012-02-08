@@ -1,0 +1,33 @@
+#wrap { width:760px; margin:0 0 0 70px; background-color:white; }
+
+h1 { font-size:125%;  }
+
+#hjnews_title { margin-top:20px; margin-bottom:30px; }
+
+#hjnews_title h1 { font-size:135%; color:#993A23; padding-bottom:5px; margin-bottom:5px; }
+
+#hjnews_title #toolsxx        { position: absolute; top:0px; right:4px; }
+
+#hjnews_title #tools        { float:right; }
+#hjnews_title #tools ul     { list-style:none; margin:0; padding:0; display:inline; }
+#hjnews_title #tools ul li  { list-style:none; margin:0; padding:0; display:inline; padding:0 5px; }
+#hjnews_title #tools ul li a { color:#000; border-bottom:none; text-decoration:none; font-size:11px; }
+#hjnews_title #tools ul li a:hover { color:#666; border-bottom:1px dotted #666; background-color:transparent; }
+#hjnews_title #tools ul li a.active { font-weight:bold; }
+
+#hjnews_title #tabs { border-bottom:3px solid #00A4D9; font-size:11px; }
+#hjnews_title #tabs ul { list-style:none; margin:0; padding:0; display:inline; }
+#hjnews_title #tabs ul li { list:style:none; margin:0; padding:0; display:inline; }
+#hjnews_title #tabs ul li a { text-decoration:none; border-bottom:none; padding:4px 15px 2px 15px; background-color:#00A4D9; color:#fff; }
+#hjnews_title #tabs ul li a:hover { text-decoration:none; font-weight:bold; color:#fff; border-bottom:none; }
+#hjnews_title #tabs ul li.active a { font-weight:bold; background-color:#00A4D9; color:#fff; padding:4px 15px 2px 15px; }
+#hjnews_title #tabs ul #specials_tab a { background-color: red; color: #fff; }
+
+
+/*
+#hjnews_title #tabs ul { list-style:none; margin:0; padding:0; display:inline; }
+#hjnews_title #tabs ul li { list-style:none; margin:0; padding:0; display:inline; padding:0 5px; }
+#hjnews_title #tabs ul li a { }
+#hjnews_title #tabs ul li a:hover { }
+#hjnews_title #tabs ul li a.active { }
+*/

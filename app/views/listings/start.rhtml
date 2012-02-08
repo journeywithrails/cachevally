@@ -1,0 +1,80 @@
+<h1>Getting Started</h1>
+
+<p>Getting your business listed in the Cache Valley Business Directory is as easy as 1, 2, 3.</p>
+
+<table><tr>
+<td width="38%" valign="top" align="center">
+	<div class="start-step">
+	<h2>1. <span style="font-size: 22px;">Search for your business</span></h2>
+	<p>Your business may already be in the directory, check below.</p>
+	</div>
+	<img src="/images/down_arrow.gif" />
+</td>
+<td>&nbsp;</td>
+
+<td width="30%" valign="top" align="center">
+	<div class="start-step">
+	<h2 align="left">2. <span style="font-size: 12px;">If your business is found claim it.</span></h2>
+		<img src="/images/btn_claim_cursor.gif" alt="Claim Your Listing"/>
+	<br />  
+  <a href="" onclick="Effect.toggle('why_claim', 'blind', {duration:0.4}); return false;">Why Claim Listing?</a>
+  <div id="why_claim" style="display:none; text-align: left;">
+  <p><strong>Search Engines</strong><br />Most Businesses in the directory have been indexed by search engines.  You don't want to loose your place in the search engines by creating a new listing.</p>
+  <p><strong>Statistics</strong><br />We record how many hits each business in the directory gets each day.  By Claiming your listing you will be able to see your Listings statistics upto one year ago.</p>
+  <p><strong>Saves You Time</strong><br />We may have already entered information about your business.  By Claiming your listing you won't have to re-enter this information.
+  </div>
+</td>
+
+<td>&nbsp;</td>
+<td width="30%" valign="top">
+	
+	<div class="start-step">
+	<h2>3. <span style="font-size: 12px; line-height: 25px;">If you didn't find your business</span></h2> <%= link_to 'Create A New Listing', :action => 'new' %></p>
+	</div>
+</td>
+</tr></table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="get-started">
+<tbody><tr>
+	
+	<td align="left" valign="top" width="38%">
+
+		<h3 style="margin:3px; text-align:center;">Enter Business Name: &nbsp;<img alt="spinner" id="spinner" src="/images/spinner.gif" style="display:none;" /></h3>
+
+		<div id="search-form" style="margin:0;padding:0;">
+			<%= start_form_tag({ :action     => "" },
+			                   { :onSubmit   => "Element.show('spinner');" }) %>                   
+
+			<input id="searchtext" style="width:240px" name="searchtext" onKeyPress="return disableEnter(event);" type="text" /><br/>
+
+      <%= observe_field(:searchtext,
+                        :with => "'phrase='+encodeURIComponent(value)", # pass value in params[:phrase]
+                        :frequency => 0.5,
+                        :update => :search_hits,
+                        :loading => "Element.show('spinner')",
+                        :complete => "Element.hide('spinner')",
+                        :url => { :action => :live_search, :type => 'start' } ) %>
+<%
+=begin %>
+			<%= observe_field(:searchtext,
+			                  :frequency => 0.5,
+			                  :update => :search_hits,
+			                  :loading => "Element.show('spinner')",
+			                  :complete => "Element.hide('spinner')",
+			                  :url => { :action => :live_search, :type => 'start' } ) %>
+<%
+=end -%>
+			<%= end_form_tag %>
+			<div id="search_hits" style="width: 240px; overflow: visible"> </div>
+		</div>
+
+	</td>
+	<td width="30%">
+		
+	</td>
+	<td align="center" valign="top" width="30%">
+
+	</td>
+</tr>
+</tbody>
+</table>

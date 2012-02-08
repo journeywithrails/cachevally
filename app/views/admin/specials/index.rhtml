@@ -1,0 +1,26 @@
+<h1>Specials</h1>
+
+<h2>Featured Specials</h2>
+
+<table class="index" cellpadding="0" cellspacing="0" border="0">
+<tr>
+  <th>Business</th>
+  <th></th>
+  <th>Special</th>
+  <th>Action</th>
+</tr>
+<% @specials.each do |special| %>
+<tr>
+  <td><%= special.listing.business %></td>
+  <td><%= image_tag 'star_gold.png' if special.featured? %></td>
+  <td class="user"><%= special.title %></td>
+  <td class="action">
+<% if special.featured? %>
+    <img src="/images/cancel.gif" width="16" height="16" alt=""/> <%= link_to 'unfeature', {:action => 'unfeature', :id => special.id}, :post => true %>&nbsp;
+<% else -%>
+    <img src="/images/accept.gif" width="16" height="16" alt=""/> <%= link_to 'make featured', {:action => 'feature', :id => special.id}, :post => true %>&nbsp;
+<% end -%>
+  </td>
+</tr>
+<% end -%>
+</table>

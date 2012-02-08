@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<% if @business_title -%>
+<title><%= @business_title %> on Cache Valley Business Directory</title>
+<% elsif @page_title -%>
+<title>Cache Valley Business Directory // <%= @page_title %></title>
+<% else -%>
+<title>Cache Valley Business Directory</title>
+<% end -%>
+
+<META name="verify-v1" content="d/JgdBYeleHRofANgot8PhyrhXE0EFvVsItyfDTnvcs=" />
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/ico" />
+
+<% if params[:controller] == 'listings' and params[:action] == 'show' -%>
+<meta name="keywords" content="<%= @listing.business %>, <%= @listing.keywords %>" />
+<% else -%>
+<meta name="keywords" content="cache valley, cache valley businesses, cache valley directory, logan utah, cache valley search, cache valley business directory" />
+<meta name="description" content="Find business contact information, products, services, specials and more on Cache Valley Business Directory." />
+<% end -%>
+
+
+<%= stylesheet_link_tag 'scaffold', 'style' %>
+<% if :controller == 'listings' and :action == 'new' -%>
+<%= stylesheet_link_tag 'forms' %>
+<% end -%>
+
+<% if is_hjnews? %>
+<link href="http://hjnews.townnews.com/art/mainstyle.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://img.video.ap.org/p/j/apovn.js "></script>
+<%= stylesheet_link_tag 'hjnews_style' %>
+<% elsif is_kuta8? %>
+<%= stylesheet_link_tag 'kuta8_style' %>
+<% end -%>
+
+<%= javascript_include_tag :defaults %>
+<% if params[:controller] == 'listings' and params[:action] == 'show' -%>
+<script src="/javascripts/scriptaculous.js?load=effects" type="text/javascript"></script>
+<%= javascript_include_tag 'lightbox' %>
+<!-- <%= javascript_include_tag 'lightbox2' %> -->
+<%= stylesheet_link_tag 'lightbox' %>
+<!-- <%= stylesheet_link_tag 'lightbox2' %> -->
+<% end -%>
+
+<script src="/javascripts/google.js">
+//Google Search Terms Highlighter- Cal Henderson (http://www.iamcal.com)
+//Script featured/ available at Dynamic Drive (http://www.dynamicdrive.com)
+</script>
+
+<% if @selected == 'map' and @map -%>
+<!-- Google YM4R vars -->
+<!-- @request.host: <%= @request.host %> -->
+  <% if @request.host == 'localhost' -%>
+<%= GMap.header(:with_vml => false, :key => 'ABQIAAAAzMUFFnT9uH0xq39J0Y4kbhTJQa0g3IQ9GZqIMmInSLzwtGDKaBR6j135zrztfTGVOm2QlWnkaidDIQ') %>
+  <% elsif @request.host == 'hjnews.cachevalleysearch.com' -%>
+<%= GMap.header(:with_vml => false, :key => 'ABQIAAAAKnyBcabZuHxTDiLVF7UDYxRPk9mfgoMm-jGw2QDMxmV03rPOJxRyUwn9Ehf3EloAz06xN2-Py4hTzg') %>
+  <% else -%>
+<%= GMap.header(:with_vml => false, :key => 'ABQIAAAAKnyBcabZuHxTDiLVF7UDYxTV6P4_ra9JcxGjiMCPDXPP5Z0oMxSXErTrbGKJHB_Y8x3olSHIEGOceA') %>
+  <% end -%>  
+<%= @map.to_html %>
+
+<script>
+<!--
+function get_directions() {
+  var start_addr_text = $('start_addr').value;
+  var start_addr = encodeURIComponent(start_addr_text);
+//  alert('start address: ' + start_addr);
+  var end_addr = encodeURIComponent('<%= @addr %>');
+//  alert('end address: ' + end_addr);
+  var url = "http://maps.google.com/maps?saddr=" + start_addr + "&daddr=" + end_addr;
+  window.open(url);
+  return false;
+}
+// -->
+</script>
+
+<% end -%>
+
+</head>
+
+<% if params[:controller] == 'listings' and (params[:action] == 'index' or params[:action] == 'list') -%>
+<body onload="document.forms[0].searchtext.focus();" id="<%= params[:controller] %>">
+<% elsif @selected == 'images' or @selected == 'menu' -%>
+<body onload="initLightbox();" id="<%= params[:controller] %>">
+<% else -%>
+<body id="<%= params[:controller] %>">
+<% end -%>
+
+<% if is_hjnews? -%>
+<%= render :partial => 'shared/header_hjnews' %>
+<% elsif is_kuta8?  -%>
+<%= render :partial => 'shared/header_kuta8' %>
+<% else -%>
+<%= render :partial => 'shared/header_www' %>
+<% end -%>
+
+<div id="wrap">
+<div id="content">
+
+<%= render :partial => 'shared/title_hjnews' if is_hjnews? %>
+<%= render :partial => 'shared/title_kuta8' if is_kuta8? %>
+
+<div id="flash">
+<% if flash[:notice] -%>
+  <p class="notice"><%= flash[:notice] %></p>
+<% end -%>
+<% if flash[:error] -%>
+  <p class="error"><%= flash[:error] %></p>
+<% end -%>
+</div>
+<%= yield %>
+<div class="clear">&nbsp;</div>
+</div><!-- // content -->
+
+<div id="footer">
+Copyright &copy; 2006-<%=DateTime.now.year%>, Media Perfection, LC. All rights reserved.<br/>
+<%= link_to 'Privacy Policy', :controller => 'about', :action => 'privacy_policy' %> |
+<%= link_to 'Terms of Use', :controller => 'about', :action => 'terms_of_use_agreement' %><br/>
+</div><!-- // footer -->
+
+</div><!-- // wrap -->
+
+<% if ENV['RAILS_ENV'] == 'development' -%>
+
+<div id="debug" style="margin: 40px 5px 5px 5px;">
+  <a href="#" onclick="Element.toggle('debug_info');return false" style="text-decoration: none; color: #ccc;">Show Debug Info &#10162;</a>
+  <div id="debug_info" style="display : none;">
+    <%= debug session %>
+    <%= debug params %>
+  </div>
+</div>
+
+<hr/>
+<!-- display all REQUEST vars -->
+<table>
+<tr>
+  <th>key</th>
+  <th>value</th>
+</tr>
+<% for item in request.env -%>
+<tr>
+  <td><%= item[0] %></td>
+  <td><%= item[1] %></td>
+</tr>
+<% end -%>
+</table>
+<% else %>
+<%= render_partial 'shared/statcounter' %>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-259781-3";
+urchinTracker();
+</script>
+
+<% end -%>
+
+</body>
+</html>

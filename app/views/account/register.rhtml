@@ -1,0 +1,34 @@
+<h2><%= @page_title %></h2>
+
+<%= start_form_tag :action => 'signup' %>
+
+<%= error_messages_for 'user' %>
+
+<table>
+<tr>
+  <th><label for="username">Username:</label></th>
+  <td><%= text_field "user", "username", :class => 'txt_md' %></td>
+</tr>
+<tr>
+  <th><label for="password">Password:</label></th>
+  <td><%= password_field "user", "password", :class => 'txt_md' %></td>
+</tr>
+<tr>
+  <th><label for="password_confirmation">Password again:</label></th>
+  <td><%= password_field "user", "password_confirmation", :class => 'txt_md' %></td>
+</tr>
+<tr>
+  <th><label for="name">Full name:</label></th>
+  <td><%= text_field "user", "name", :class => 'txt_md' %></td>
+</tr>
+<tr>
+  <th><label for="email">Email:<label></th>
+  <td><%= text_field "user", "email", :class => 'txt_md' %></td>
+</tr>
+<tr>
+  <td></td>
+  <td><%= submit_tag "Submit" %></td>
+</tr>
+</table>
+
+<%= end_form_tag %>

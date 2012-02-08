@@ -1,0 +1,35 @@
+<script type="text/javascript" language="Javascript">document.write('<div class="print_link"><a href="javascript:window.print()">Print Coupon</a><br/><br/></div>');</script>
+
+<div id="coupon_border">
+<div id="coupon">
+<div id="header">
+  <h3>Cache Valley Business Directory</h3>
+  <h1>Coupon/Special</h1>
+  <p>Visit us at cachevalleysearch.com for more great coupons and specials from local businesses.</p>
+</div>
+<div id="offer">
+  
+<span class="expiry">Valid Until: <%= @special.date_expires %></span>
+
+<h2><%= @special.title %></h2>
+<p><%= @special.description %></p>
+
+<div id="business">
+<em>Brought to you by:</em><br/>
+<table style="width:100%">
+<tr>
+  <td style="width:50%">
+    <span class="title"><%= @listing.business %></span><br/>
+    <%= @listing.address %><br/>
+    <%= @listing.city %>, <%= @listing.state %> <%= @listing.zip %></td>
+  <td style="width:50%">
+    <strong>Phone:</strong> <%= @listing.phone %><br/>
+    <strong>Fax:</strong> <%= @listing.fax %><br/>
+    <strong>Website:</strong> <%= @listing.website %><br/></td>
+</tr>
+</table>
+</div>
+
+</div><!-- // offer -->
+</div><!-- // coupon -->
+</div><!-- // coupon_border -->

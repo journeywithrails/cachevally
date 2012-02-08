@@ -1,0 +1,30 @@
+<h2>Account Login</h2>
+
+<div style="float:right;text-align:right;">
+  <%= link_to(image_tag('cvsearch_brochure_thumbnail.png'), url_for('docs/cvsearch_brochure.pdf'), :class => 'plain' ) %><br/>
+  <%= link_to('Why Sign Up?', url_for('docs/cvsearch_brochure.pdf')) %> (540KB PDF)
+</div>
+
+<p>You must login to submit ratings, reviews and or edit your business listings.</p>
+
+<p>Don't have an account? <strong style="font-size:115%"><%= link_to 'Signup Now!', :action => 'signup' %></strong> It's Free.</p>
+
+<%= start_form_tag :action => "login" %>
+<table>
+<tr>
+  <th><label for="username">Username:</label></th>
+  <td><%= text_field_tag "username", '', :class => 'txt_md' %></td>
+</tr>
+<tr>
+  <th><label for="password">Password:</label></th>
+  <td><%= password_field_tag "password", '', :class => 'txt_md' %></td>
+</tr>
+<tr>
+  <td></td>
+  <td><%= submit_tag "Log in" %></td>
+</tr>
+</table>
+<%= end_form_tag %>
+
+<br/>
+<%= link_to 'I forgot my password', {:action => 'forgot_password'}, {:class => 'forgot_password'} %>

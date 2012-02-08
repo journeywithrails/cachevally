@@ -1,0 +1,23 @@
+<h1>Cities</h1>
+
+<p>This is a list of all cities served by this search engine. It will be used as a picklist
+on the "Create A New Listing" form, and on the "Browse By City" page.</p>
+
+<table class="index" cellpadding="0" cellspacing="0" border="0">
+<tr>
+  <th>City Name</th>
+  <th>Action</th>
+</tr>
+<% for city in @cities -%>
+<tr>
+  <td class="user"><%= link_to city.name, :action => 'show', :id => city %></td>
+  <td class="action">
+  <%= image_tag '/images/delete.gif' %> <%= link_to 'delete', {:action => 'destroy', :id => city }, :confirm => 'Are you sure?', :post => true %>
+  </td>
+</tr>
+<% end -%>
+</table>
+
+<br />
+<p><a href="<%= url_for :action => 'new' %>">
+  <img src="/images/btn_add_city.gif" width="100" height="31" alt="Add City"></a></p>

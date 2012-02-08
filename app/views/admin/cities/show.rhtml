@@ -1,0 +1,11 @@
+<h1>City</h1>
+
+<table class="fieldset">
+<tr>
+  <th><label for="city_name">Name</label></th>
+  <td><%= @city.name %></td>
+</tr>
+</table>
+
+<p><%= link_to 'Edit', :action => 'edit', :id => @city %> |
+<%= link_to 'Back', :action => 'list' %></p>

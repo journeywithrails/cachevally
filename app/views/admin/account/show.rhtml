@@ -1,0 +1,95 @@
+<h1>User</h1>
+
+<table class="fieldset">
+<tr>
+  <th>Name</th>
+  <td><%= @user.name %>
+  <td class="help">This is help</td>
+</tr>
+<tr>
+  <th>Username</th>
+  <td><%= @user.username %>
+  <td class="help"></td>
+</tr>
+<tr>
+  <th>Email</th>
+  <td><%= @user.email %>
+  <td class="help"></td>
+</tr>
+<tr>
+  <th>Account Active?</th>
+  <td><strong><% if @user.is_active? %><%= image_tag'/images/accept.gif'%> active<% else %><%=image_tag '/images/inactive.gif'%> inactive<% end %></strong></td>
+  <td class="help"></td>
+</tr>
+<tr>
+  <th>Admin User?</th>
+  <td><strong><% if @user.is_admin? %><%= image_tag '/images/admin.gif' %> admin<% else %>regular<% end %></strong></td>
+  <td class="help"></td>
+</tr>
+<tr>
+  <th class="help">Created:</th>
+  <td class="help"><%= @user.created_on %></td>
+  <td class="help"></td>
+</tr>
+<tr>
+  <th class="help">Last Modified:</th>
+  <td class="help"><%= @user.updated_on %></td>
+  <td class="help"></td>
+</tr>
+<tr>
+  <th class="help">Last Login:</th>
+  <td class="help"><%= @user.login_on %></td>
+  <td class="help"></td>
+</tr>
+</table>
+
+
+<% if !@listings.nil? -%>
+
+  <% if @listings.size > 1 -%>
+<h2>Business Listings</h2>
+  <% else -%>
+<h2>Business Listing</h2>
+  <% end -%>
+
+<table class="index">
+<tr>
+  <th>Business</th>
+  <th>Status</th>
+  <th>Edit</th>
+  <th>Upgrade</th>
+</tr>
+  <% for listing in @listings -%>
+<tr>
+  <td><%= link_to listing.business, :controller => 'listings', :action => 'show', :id => listing.id %></td>
+  <% if listing.editor_approved? -%>
+  <td><%= image_tag 'accept.gif' %> Approved</td>
+  <td><%= link_to 'edit', :controller => 'listings', :action => 'edit', :id => listing %></td>
+  <% elsif listing.editor_approved == 9 -%>
+  <td><%= image_tag 'cancel.gif' %> Denied</td>
+  <td class="help">Your request to edit this listing was not approved.</td>  
+  <% else -%>
+  <td><%= image_tag 'time.gif' %> Approval pending...</td>
+  <td class="help">Your request is being reviewed</td>
+  <% end -%>
+
+  <td>
+    <%= link_to 'Upgrade Listing', :action => 'upgrade', :listing_id => listing.id %>
+  </td>
+
+</tr>
+  <% end -%>
+</table>
+<% end -%>
+
+
+
+<!-- <% if !@listing.nil? -%>
+<h2>Business Listing</h2>
+
+<p><%= image_tag '/images/icon_house.png', :style => 'vertical-align:middle;' %> <%= link_to "#{@listing.business}", :controller => 'listings', :action => 'show', :id => @listing %></p>
+<% end -%> -->
+
+
+<%= link_to 'Edit', :action => 'edit', :id => @user %> |
+<%= link_to 'Back', :action => 'list' %>

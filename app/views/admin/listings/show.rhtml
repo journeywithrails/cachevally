@@ -1,0 +1,80 @@
+<h1><%= @listing.business %></h1>
+
+<%
+=begin %>
+<% if @listing.is_paid? -%>
+<p><%= image_tag 'coins.gif' %> <strong style="color:green;">Upgraded Listing</strong></p>
+<% else -%>
+<p><strong style="color:red;">Basic Listing</strong></p>
+<% end -%>
+<%
+=end %>
+
+<table class="fieldset">
+<tr><th>Editor</th><td><% if @listing.user_id > 0 %><strong><%= link_to @listing.user.name, {:controller => 'account', :action => 'show', :id => @listing.user_id}, :popup => 'true' %></strong> / <%= @listing.user.username %><% end %></td>
+<tr><th>Tagline</th><td><%=h @listing.tagline %></td></tr>
+<tr><th>Address</th><td><%=h @listing.address %></td></tr>
+<tr><th>Address 2</th><td><%=h @listing.address2 %></td></tr>
+<tr><th>City</th><td><%=h @listing.city %></td></tr>
+<tr><th>State</th><td><%=h @listing.state %></td></tr>
+<tr><th>Zip Code</th><td><%=h @listing.zip %></td></tr>
+<tr><th>Email</th><td><%=h @listing.email %></td></tr>
+<tr><th>Website</th><td><%=h @listing.website %></td></tr>
+<tr><th>Phone</th><td><%=h @listing.phone %></td></tr>
+<tr><th>Fax</th><td><% if @listing.fax != nil %><%=h @listing.fax %><% end %></td></tr>
+<tr><th>Phone2</th><td><%=h @listing.phone2 %></td></tr>
+<tr><th>Keywords</th><td><%=h @listing.keywords %></td></tr>
+</table>
+
+
+<% if @listing.is_paid? -%>
+
+<h3>Upgraded (Paid) Listing</h3>
+<p><%= image_tag 'coins.gif' %> This is an <strong style="color:green;">upgraded</strong> listing (expires <%= @listing.date_paid_expires %>).</p>
+
+<% elsif @listing.date_paid_start != nil and @listing.date_paid_start > @today -%>
+
+<h3>Basic (Unpaid) Listing (Future)</h3>
+<p>This listing is currently <strong style="color:red;">basic</strong>, but will be upgraded as of <%= @listing.date_paid_start %>.</p>
+
+<% elsif @listing.date_paid_expires != nil and @listing.date_paid_expires > 0 -%>
+
+<h3>Basic (Unpaid) Listing</h3>
+<p>This is an <strong style="color:red;">unpaid</strong> listing (expired <%= @listing.date_paid_expires %>).</p>
+
+<% else -%>
+
+<h3>Basic Listing</h3>
+<p>This is a <strong style="color:red;">basic</strong> (unpaid) listing.</p>
+
+<% end -%>
+
+
+<h3>Uploaded Image</h3>
+
+<% if @listing.image.nil? -%>
+<p>No current image</p>
+<% else %>
+<p><%= image_tag( url_for_file_column('listing', 'image', 'thumb') ) %></p>
+<% end -%>
+
+<% if !@listing.image.nil? -%>
+<p>
+  <a href="<%= url_for_file_column('listing', 'image') %>">View original image</a>
+</p>
+<% end -%>
+
+<h3>Listing Status</h3>
+
+<p class="highlight">Listing is <strong>
+<% if @listing.active? %><span class="active">active</span></strong>
+(<%= link_to 'Open public view of this listing', :controller => '/listings', :action => 'show', :id => @listing %>)
+<% else %><span class="inactive">inactive</span></strong><% end %>
+</p>
+
+<% if @approver %>
+<p>Approved by: <%= @approver.name %> on <%= @listing.approved_on %></p>
+<% end %>
+
+<br/><p><a href="<%= url_for :action => 'edit', :id => @listing %>" style="vertical-align:">
+  <img src="/images/btn_edit.gif" width="63" height="31" alt="Edit"></a></p>

@@ -1,0 +1,18 @@
+<div class="item">
+  <table>
+    <tr><td rowspan="6" style="width:80px;">
+      <%= link_to image_tag(item.public_filename(:mini)), item.public_filename %><br/>
+      <%= link_to 'edit', :action => 'edit', :id => item.id %> |
+      <%= link_to 'delete', { :action => 'destroy', :id => item.id }, :confirm => 'Are you sure?', :post => true %></td>
+      <td><strong>Caption:</strong> <%= item.caption %></td></tr>
+    <tr><td><strong>Location: </strong> <%= item.public_filename %></td></tr>
+    <tr><td><a href="" onclick="copy('<%= item.public_filename() %>')"><%= image_tag 'btn_copy_url.gif' %></a>
+      <strong>Main image URL:</strong></td></tr>
+    <tr><td><a href="" onclick="copy('<%= item.public_filename(:thumb) %>')"><%= image_tag 'btn_copy_url.gif' %></a>
+      <strong>Thumbname image URL (125px):</strong></td></tr>
+    <tr><td><a href="" onclick="copy('<%= item.public_filename(:mini) %>')"><%= image_tag 'btn_copy_url.gif' %></a>
+      <strong>Mini image URL (75px):</strong></td></tr>
+    <tr><td><a href="" onclick="copy('<%= item.public_filename(:medium) %>')"><%= image_tag 'btn_copy_url.gif' %></a>
+      <strong>Medium image URL (640x480px):</strong></td></tr>
+  </table>
+</div>

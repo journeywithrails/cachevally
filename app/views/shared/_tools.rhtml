@@ -1,0 +1,15 @@
+<div id="tools">
+<ul>
+  <li><a href="/listings/tell_a_friend/" <% if params[:controller] == 'listings' and params[:action] == 'tell_a_friend' %>class="active"<%end%>>share</a></li>
+  <li><a href="/update/" <% if params[:controller] == 'update' and params[:action] == 'index' %>class="active"<%end%>>add business</a></li>
+  <li><a href="/tour/" <% if params[:controller] == 'tour' and params[:action] == 'homepage' %>class="active"<%end%>>tour</a></li>
+  <li><a href="/about/" <% if params[:controller] == 'about' and params[:action] == 'index' %>class="active"<%end%>>about us</a></li>
+  <li><a href="/about/contact/" <% if params[:controller] == 'about' and params[:action] == 'contact' %>class="active"<%end%>>contact us</a></li>
+  <li><a href="/account/index" <% if params[:controller] == 'account' and params[:action] == 'index' %>class="active"<%end%>>my account</a></li>
+<% if user_logged_in? -%>
+  <li><%= link_to 'logout', :controller => 'account', :action => 'logout' %>
+<% else -%>
+  <li><%= link_to 'login', :controller => 'account', :action => 'login' %>
+<% end -%>
+</ul>
+</div>

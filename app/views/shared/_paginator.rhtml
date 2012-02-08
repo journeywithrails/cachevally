@@ -1,0 +1,44 @@
+<div class="paginate">
+<strong>Result page:</strong>&nbsp;
+<% if collection.page == collection.first_page -%>
+<span class="disabled">&laquo;</span>
+<% else -%>
+<%= link_to '&laquo;', { :page => collection.first_page }, { :title => "First Page" } -%> 
+<% end -%>
+<% if collection.previous_page? -%>
+<%= link_to_if collection.previous_page?, '&lt;prev', { :page => collection.previous_page }, { :title => "Page #{collection.previous_page}"} -%> 
+<% else -%>
+<span class="disabled">&lt;prev</span>
+<% end -%>
+<!-->
+<%= link_to_if collection.page != collection.first_page, '&laquo;first', { :page => collection.first_page }, { :title => "First Page" } -%> 
+<%= link_to_if collection.previous_page?, '&lt;prev', { :page => collection.previous_page }, { :title => "Page #{collection.previous_page?}"} -%> 
+-->
+
+[ 
+<% (1..collection.page_count).each do |p| -%>
+  <% if collection.page == p -%>
+<strong><%= collection.page %></strong>
+  <% else -%>
+    <%= link_to p, { :page => p }, { :title => "Page #{p}" } %>
+  <% end -%>
+<% end -%>
+]
+<!--
+[ page <strong><%= collection.page -%></strong> of <%= collection.page_count %> ]
+-->
+<% if collection.next_page? -%>
+<%= link_to_if collection.next_page?, 'next&gt;', { :page => collection.next_page }, { :title => "Page #{collection.next_page}"} -%> 
+<% else -%>
+<span class="disabled">next&gt;</span>
+<% end -%>
+<% if collection.page == collection.page_count -%>
+<span class="disabled">&raquo;</span>
+<% else -%>
+<%= link_to '&raquo;', { :page => collection.page_count }, { :title => "Last Page" } -%> 
+<% end -%>
+<!--
+<%= link_to_if collection.next_page?, 'next&gt;', { :page => collection.next_page }, { :title => "Page #{collection.next_page?}"} -%>
+&nbsp;<%= link_to_if collection.page != collection.page_count, 'last&raquo;', { :page => collection.page_count }, { :title => "Last Page"} -%>
+-->
+</div>

@@ -1,0 +1,35 @@
+<h1>Users</h1>
+
+<p><%= link_to 'Newsletter subscriptions', :action => 'view_subscriptions' %></p>
+
+<%= render :partial => 'paginator' %>
+
+<table class="index">
+<tr>
+  <th>Name / Username</th>
+  <th>Last Login</th>
+  <th>Active?</th>
+  <th>Admin?</th>
+  <th>Subscribed?</th>
+  <th>Listing</th>
+  <th>Modify</th>
+</tr>
+<% for user in @users -%>
+<% @listing = Listing.find_by_user_id(user.id) %>
+<tr>
+  <td class="user"><%= link_to user.name, :action => 'show', :id => user %> <span class="small">/ <%= user.username %></span></td>
+  <td><%= user.login_on.strftime("%a.%b.%d at %H:%m:%S%p") unless user.login_on.blank? %></td>
+  <td class="icon"><% if user.is_active? %><%= image_tag 'accept.gif'%><% else %><%= image_tag '/images/inactive.gif' %><% end %></td>
+  <td class="icon"><% if user.is_admin? %><%= image_tag 'admin.gif' %><% end %></td>
+  <td class="icon"><% if user.subscribed? %><%= image_tag 'newspaper.png' %><% end %></td>
+  <td><%= link_to "#{@listing.business}", :controller => '/listings', :action => 'show', :id => @listing unless @listing.blank? %></td>
+  <td><%= image_tag '/images/delete.gif' %> <%= link_to 'Delete', { :action => 'destroy', :id => user }, :confirm => 'Are you sure?', :post => true %></td>
+</tr>
+<% end %>
+</table>
+
+<%= render :partial => 'paginator' %>
+
+<br/>
+<p><a href="<%= url_for :action => 'new' %>">
+<img src="/images/btn_add_user.gif" width="100" height="31" alt="Add User"></a></p>

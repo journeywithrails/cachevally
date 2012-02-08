@@ -1,0 +1,25 @@
+<h1>View Subscriptions</h1>
+
+<% if @subscriptions -%>
+
+<p>Total subscriptions: <%= @subscriptions.size %>
+
+<table class="index">
+<tr>
+  <th>Name</th>
+  <th>Email</th>
+  <th>Date</th>
+  <th>IP Address</th>
+</tr>
+  <% @subscriptions.each do |user| -%>
+<tr>
+  <td><%= link_to user.name, :controller => '/account', :action => 'index', :id => user.id %> (<%= user.username %>)</td>
+  <td><%= user.email %></td>
+  <td><%= user.subscription_date %></td>
+  <td><%= user.subscription_ip %></td>
+</tr>
+  <% end -%>
+<% else -%>
+There are no current newsletter subscriptions.
+<% end -%>
+</table>

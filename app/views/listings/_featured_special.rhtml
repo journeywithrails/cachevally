@@ -1,0 +1,23 @@
+<% if !@special.nil? -%>
+<div>
+	<div style="float:left; padding: 0 20px 5px 0;">
+    <% if !@special.special_images.empty? %>
+      <%= link_to(
+          image_tag(@special.special_images.first.public_filename('mini'), {:class => 'thumb'}),
+	        url_for(:controller => 'specials', :action => 'show', :id => @special.id), :class => 'plain' ) -%><br/>
+	  <% elsif @has_image -%>
+	    <%= link_to(
+	        image_tag(
+	          url_for_file_column('special', 'image', 'thumb'), {:class => 'thumb'} ),
+	        url_for(:controller => 'specials', :action => 'show', :id => @special.id), :class => 'plain' ) -%><br/>
+    <% end %>
+	</div>
+	<div id="featured_special" style="float:left; margin: 30px 0 0 0">
+	  <%= link_to(image_tag('arrow_getit.png', :class => 'arrow'), {:controller => 'specials', :action => 'show', :id => @special.id}, {:class => 'plain'}) %>
+	  <span id="featured_title">Featured Special</span>
+	  <span class="title"><%= link_to(truncate(@special.title, 30), {:controller => 'specials', :action => 'show', :id => @special.id}, {:class => 'special'}) %></span>&nbsp;
+	  <span class="label">From:</span> <span class="business"><%= truncate(@special.listing.business, 30) %></span>
+	</div>
+	<p style="font-size:10px;">Business Owners - You can <a href="http://www.cachevalleysearch.com/login">post your special</a> here for FREE.</p>
+</div>
+<% end -%>

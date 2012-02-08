@@ -1,0 +1,47 @@
+<h1><%= @listing.business %></h1>
+
+<h2>Visitor Statistics</h2>
+
+<p>Here are statistics on the visits received by your Business Listing page.</p>
+
+<table id="stats">
+<tr>
+  <th>Today</th>
+  <th class="odd">Last 7 Days</th>
+  <th>Last 30 Days</th>
+  <th class="odd">Total Visits</th>
+</tr>
+<tr>
+  <td><%= @hits_today.size %></td>
+  <td class="odd"><%= @hits_week.size %></td>
+  <td><%= @hits_month.size %></td>
+  <td class="odd"><%= @hits.size %></td>
+</tr>
+</table>  
+
+
+<br/>
+<h2>Breakdown of Total Visits</h2>
+
+<table>
+<tr>
+  <th>Sub-section</th>
+  <th>Visits</th>
+<% @hits_by_subaction.each do |subaction, hit| -%>
+<tr>
+  <td><%= subaction %></td>
+  <td><%= hit.size %></td>
+<tr>
+<% end -%>
+</table>
+
+<!-- <p>Graph 1:</p>
+
+<p><%= image_tag "graph_#{@listing.id}.png" %></p>
+ -->
+
+<p>Graph 2:</p>
+
+<img src="/listings/stats_graph/<%= @listing.id %>" width="500" />
+
+<p class="help">* This graph shows the breakdown of total visits to each sub-section of your listing.</p>

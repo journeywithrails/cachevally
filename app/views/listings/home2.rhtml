@@ -1,0 +1,98 @@
+<script type="text/javascript">
+function disableEnter(e) {
+  var keynum
+  if (window.event) { // IE
+    keynum = e.keyCode
+  } else if (e.which) { // Netscape/Firefox/Opera
+    keynum = e.which
+  }
+  if (keynum == 13) { return false; } else { return true; }
+}
+</script>
+
+<div id="home_wrapper">
+  
+<div id="home_left">
+
+  <div class="highlight">
+    <h1>What Is This?</h1>
+    Search over 3,000 business listings from the Cache Valley area. To get started,
+    just start typing a business name, or a product/service category in the live search box below.
+  </div>
+    
+  <div id="search-form" style="margin-top:0;padding-top:0;">
+    <%= start_form_tag( {:action     => ""},
+                        {:onSubmit   => "Element.show('spinner');"} ) %>                   
+
+      <h2 style="font-weight:bold;border:0;font-style:normal;">Live Business Search:</h2>
+      <input id="searchtext" name="searchtext" onKeyPress="return disableEnter(event);" type="text" />&nbsp;<img alt="spinner" id="spinner" src="/images/spinner.gif" style="display:none;" /><br/>
+      <span id="searchhelp"><strong>eg. "Shaffer's Bakery" or "apartments"</strong><br/>
+        (Enter at least 3 characters to search)</span><br/>
+
+      <%= observe_field(:searchtext,
+                        :with => "'phrase='+encodeURIComponent(value)", # pass value in params[:phrase]
+                        :frequency => 0.5,
+                        :update => :search_hits,
+                        :loading => "Element.show('spinner')",
+                        :complete => "Element.hide('spinner')",
+                        :url => { :action => :live_search } ) -%>
+    <%= end_form_tag -%>
+    <div id="search_hits" style="clear:left;"></div>
+  </div><!-- // search-form -->
+  
+<div class="roundcont" style="width:100%; margin-top:0px;">
+  <div class="roundtop"><img src="/images/tl.gif" alt="" width="10" height="10" class="corner" style="display: none" /></div>
+  
+  <p style="padding-top:5px;"><strong>Search By Category</strong> (or <strong><a href="/list_by_city">Browse By City</a></strong>)</p>
+  
+  <table class="search_by_category">
+  <tr>
+    <td width="33%">
+      <%= @col1_categories.map {|c| "<a href=\"/listings/search?q=#{c.downcase}\">#{c}</a><br/>" } %>
+    </td>
+    <td width="33%">
+      <%= @col2_categories.map {|c| "<a href=\"/listings/search?q=#{c.downcase}\">#{c}</a><br/>" } %>
+    </td>
+    <td width="34%">
+      <%= @col3_categories.map {|c| "<a href=\"/listings/search?q=#{c.downcase}\">#{c}</a><br/>" } %>
+    </td>
+  </tr>
+  </table>
+  
+  <div class="roundbottom"><img src="/images/bl.gif" alt="" width="10" height="10" class="corner" style="display: none" /></div>
+</div>
+
+<h2 style="padding-top:20px; clear:left;">News &amp; Announcements</h2>
+<%= render :partial => 'blog', :collection => @blogs %>
+<p><%= link_to 'read all news', :controller => 'blogs' %></p>
+</div><!-- // home_left -->
+
+  
+<div id="home_right">
+
+  <div id="featured_special" style="width:100%;margin:0;">
+	  <%#= link_to(image_tag('arrow_getit.png', :class => 'arrow'), {:controller => 'specials', :action => 'show', :id => @special.id}, {:class => 'plain'}) %>
+    <span id="featured_title">Featured Special</span>
+	  <span class="title"><%= link_to(truncate(@special.title, 30), {:controller => 'specials', :action => 'show', :id => @special.id}, {:class => 'special'}) %></span><br/>
+	  <span class="label">From:</span> <span class="business"><%= truncate(@special.listing.business, 30) %></span>
+	</div>
+  
+  <h2>Specials &amp; Coupons</h2>
+  <%= render :partial => 'special_short', :collection => @specials %>  
+  
+  <div id="featured_businesses">
+  <h2>Featured Businesses</h2>
+  <%= render :partial => 'featured_listing', :collection => @featured_listings %>
+    <div class="clear">&nbsp;</div>
+  </div>
+
+  <h2>Recent Reviews</h2>
+  <%= render :partial => 'review', :collection => @reviews, :local => {:c => @review} %>
+  
+  <h2>New Listings</h2>
+  <%= render :partial => 'new_listing', :collection => @new_listings %>
+  
+</div>  
+  
+<div class="clear">  
+</div>

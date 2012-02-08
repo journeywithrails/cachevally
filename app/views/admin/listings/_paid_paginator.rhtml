@@ -1,0 +1,6 @@
+<div class="paginator">
+[Results: <%=@paid_listing_pages.current.first_item%>-<%=@paid_listing_pages.current.last_item%>]
+<%= link_to '&laquo; prev', { :page => @paid_listing_pages.current.previous } if @paid_listing_pages.current.previous %>
+<% if @paid_listing_pages.current.next and @paid_listing_pages.current.previous %> | <% end %>
+<%= link_to 'next &raquo;', { :page => @paid_listing_pages.current.next } if @paid_listing_pages.current.next %>
+</div>

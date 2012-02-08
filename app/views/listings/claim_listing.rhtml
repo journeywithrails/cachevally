@@ -1,0 +1,46 @@
+<h1>Claim Listing</h1>
+
+<div style="float:right;text-align:right;">
+  <%= link_to(image_tag('cvsearch_brochure_thumbnail.png'), url_for('/docs/cvsearch_brochure.pdf'), :class => 'plain' ) %><br/>
+  <%= link_to('Why Sign Up?', url_for('docs/cvsearch_brochure.pdf')) %> (540KB PDF)
+</div>
+
+<h2><span style="font-weight:normal">Business:</span> <%= @listing.business %></h2>
+
+<% if @listing.user_id > 0 -%>
+
+<p>This business listing already has an editor (<%= @listing.user.name %>).</p>
+
+<% else -%>
+
+<p>If you are the owner of, or are rightfully entitled to represent
+this business, you may request that you be made editor of this listing.</p>
+
+<p>All requests will be verified by phone.</p>
+
+
+<h2>Next Step</h2>
+
+<% if user_logged_in? -%>
+
+<p>If you wish to proceed, use this link to 
+<%= link_to "submit a request to edit this listing", :action => 'claim_this_listing', :id => @listing %>.
+
+<% else -%>
+
+<p>You must be signed in to proceed.</p>
+
+<blockquote><strong>I already have an account.</strong>
+  Please <%= link_to 'login now', :action => 'claim_this_listing', :id => @listing %>.
+</blockquote>
+
+<p>OR</p>
+
+<blockquote>
+  <strong>I do not have an account.</strong> Please
+  <%= link_to 'signup for a free account', :controller => 'account', :action => 'signup', :listing_id => @listing %>
+</blockquote>
+
+<% end -%>
+
+<% end -%>

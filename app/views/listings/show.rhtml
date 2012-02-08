@@ -1,0 +1,110 @@
+<div style="float:right; clear:right;"><%= render :partial => 'shared/ad_google_vertical_links' %></div>
+<%= render :partial => 'shared/google_horizontal' %>
+<% if @listing.is_unclaimed? %>
+<div id="is_this_your_listing">
+<strong>Is this your listing?</strong><br/>
+<%= link_to 'Claim this listing now!', :action => 'claim_listing', :id => @listing %>
+</div>
+<% end -%>
+
+<div id="listing_show">
+
+<%# if !@listing.image.nil? and (@listing.is_paid? or @listing.is_deluxe?) -%>
+<% if !@listing.image.nil? -%>
+<div id="image"><%= image_tag( url_for_file_column('listing', 'image'), :class => 'biz_thumb' ) %></div>
+<% end -%>
+<div id="detail">
+<h1><%= @listing.business %></h1>
+<% if !@listing.tagline.blank? -%><em><%=h @listing.tagline%></em><br/><%end-%>
+<address><% if !@listing.address.blank? -%><%=h @listing.address%><%end-%>
+<% if !@listing.address.blank? and !@listing.address2.blank? %>, <%end-%>
+<% if !@listing.address2.blank? -%><%=h @listing.address2%><%end-%>
+<% if !@listing.address.blank? and !@listing.address2.blank? %> <%end-%>
+<% if !@listing.city.blank? -%> <%=h @listing.city%>, <%end-%>
+<% if !@listing.state.blank? -%><%=h @listing.state%> <%end-%><br/></address>
+<% if !@listing.phone.blank? -%><span class="title">Phone:</span> <%= @listing.format_phone(@listing.phone) %><br/><%end-%>
+<% if !@listing.fax.blank? -%><span class="title">Fax:</span> <%= @listing.format_phone(@listing.fax) %><br/><%end-%>
+<% if !@listing.phone2.blank? -%><span class="title">Toll-free:</span> <%= @listing.format_phone(@listing.phone2) %><br/><%end-%>
+<% if !@listing.fax.blank? and !@listing.phone2.blank? -%><br/><%end-%>
+<% if !@listing.email.blank? -%>
+  <span class="title">Email:</span>
+    <a href="#" onclick="Effect.toggle('email_form', 'blind', {duration:0.4}); return false;">Click to Email Us</a><br/>
+<div id="email_form" style="display:none;">
+<%= form_tag( {:action => 'send_email_to_business', :id => @listing}, {:id => 'email_form'} ) %>
+<table>
+<tr>
+  <td colspan="3" style="text-align:right;" class="cancel">
+    <a href="#" class="cancel" onclick="Effect.BlindUp('email_form', {duration:0.4}); return false;">close <%= image_tag 'cancel.gif', :class => 'cancel' %></a></td>
+</tr>
+<tr>
+  <td width="10">&nbsp;</td>
+  <th>Name:</th>
+  <td><%= text_field_tag 'name' %></td>
+</tr>
+<tr>
+  <td></td>
+  <th>Your Email:</th>
+  <td><%= text_field_tag 'email' %></td>
+</tr>
+<tr>
+  <td></td>
+  <th>Comment:</th>
+  <td><%= text_area_tag 'comments' %></td>
+</tr>
+<tr>
+  <td></td><td></td><td><%= submit_tag 'Send Email' %> or <a href="#" onclick="Effect.BlindUp('email_form', {duration:0.4}); return false;">cancel</a></td>
+</tr></table></form>
+</div>
+<% end -%>
+<% if !@listing.website.blank? -%>
+<span class="title">Website:</span> <a href="http://<%=h @listing.website%>" target="_blank"><%=h @listing.website%></a>
+<% end -%>
+
+<br/>
+<%= render :partial => "ratings/rate", :locals => { :asset => @listing } %>  
+
+<br/>
+<p style="color:silver;">
+<strong>Keywords:</strong> <%= @listing.keywords %></p>
+
+</div>
+<div class="clear">&nbsp;</div>
+</div><!-- // div#listing_show -->
+
+
+<%= render :partial => 'subnav' %>
+<% if !@selected.blank? -%>
+<div>
+  <%= render :partial => @selected %>
+  <div class="spacer">&nbsp;</div>
+</div>
+<% end -%>
+
+
+<% if user_logged_in? and @user and @listing.user_id == @user.id and @listing.editor_approved? -%>
+<br/><p><%= image_tag '/images/edit.gif' %> <%= link_to 'Edit My Listing', :controller => '/listings', :action => 'edit', :id => @listing %><br/>
+<% end -%>
+
+<% if user_logged_in? and is_admin? -%>
+<div id="admin_tools" style="clear:both">
+
+<h3>Admin Toolbox</h3>
+
+<p>
+<%= image_tag '/images/edit.gif' %> <%= link_to 'Edit Listing', :controller => '/listings', :action => 'edit', :id => @listing %>&nbsp;&nbsp; 
+<%= image_tag '/images/delete.gif' %> <%= link_to 'Delete Listing', {:action => 'destroy', :id => @listing }, :confirm => 'Are you sure?', :post => true %>&nbsp;&nbsp;
+
+<% if @listing.featured? -%>
+  <%= image_tag 'star_gold.png' %> <span class="red"><strong>FEATURED</strong></span> (<%= link_to 'toggle', :action => 'toggle_featured', :id => @listing.id %>)
+<% else -%>
+  <strong>Unfeatured</strong> (<%= link_to 'toggle', :action => 'toggle_featured', :id => @listing.id %>)
+<% end -%>
+<% if @listing.user_id > 0 -%>
+&nbsp;&nbsp;<strong>Approved Editor:</strong> <%= link_to(@listing.user.name, :controller => '/admin/account', :action => 'show', :id => @listing.user_id, :popup => true) %> / <%= @listing.user.username %>
+<% end -%>
+</p>
+<% if @approver %>
+<p>Approved by: <%= @approver.name %> on <%= @listing.approved_on %></p>
+<% end %>
+</div>
+<% end %>

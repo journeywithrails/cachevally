@@ -1,0 +1,144 @@
+<h1>Edit Imported Listing</h1>
+
+<table><tr><td>
+
+<% form_for :import,
+            :url  => { :controller => :listing_imports, :action => :merge, :id => @import } do |form| %> 
+<%# render :partial => 'form', :locals => { :form => form } %>
+
+<%= error_messages_for 'listing' %>
+
+<table>
+<tr>
+  <td> </td>
+  <td style="color:red;font-size:11px;width:240px;">
+    <strong>Important:</strong> These fields will overwrite the corresponding
+    fields in the target record, <em>even if left blank!</em></td>
+  <td> </td>
+  <td colspan="2">Target Listing (<span id="merge_id"></span>)</td>
+</tr>
+<tr>
+  <th>Business:</th>
+  <td><%= form.text_field :business %></td>
+  <td><button onclick="document.getElementById('import_business').value=
+  document.getElementById('business_new').value" type="button">&laquo; copy</button></td>
+  <td id="business_preview"><input type="text" id="business_new" size="40"></td>
+  <td rowspan="10" id="image_preview"></td>
+</tr>
+<tr>
+  <th>Address:</th>
+  <td><%= form.text_field :address %></td>
+  <td><button onclick="document.getElementById('import_address').value=
+  document.getElementById('address_new').value" type="button">&laquo; copy</button></td>
+  <td id="address_preview"><input type="text" id="address_new" size="40"></td>
+</tr>
+<tr>
+  <th>Address 2:</th>
+  <td><%= form.text_field :address2 %></td>
+  <td><button onclick="document.getElementById('import_address2').value=
+  document.getElementById('address2_new').value" type="button">&laquo; copy</button></td>
+  <td id="address2_preview"><input type="text" id="address2_new" size="40"></td>
+</tr>
+<tr>
+  <th>City:</th>
+  <td>
+    <input type="text" id="import_city" name="import[city]" size="30" value="<%= @import.city || 'Logan' %>" />
+    <%# form.text_field :city %>
+  </td>
+  <td><button onclick="document.getElementById('import_city').value=
+  document.getElementById('city_new').value" type="button">&laquo; copy</button></td>
+  <td id="city_preview"><input type="text" id="city_new" size="40"></td>
+</tr>
+<tr>
+  <th>State:</th>
+  <td>
+    <input type="text" id="import_state" name="import[state]" size="30" value="<%= @import.state || 'UT' %>" />
+    <%# form.text_field :state %>
+  </td>
+  <td><button onclick="document.getElementById('import_state').value=
+  document.getElementById('state_new').value" type="button">&laquo; copy</button></td>
+  <td id="state_preview"><input type="text" id="state_new"></td>
+</tr>
+<tr>
+  <th>Zip:</th>
+  <td><%= form.text_field :zip %></td>
+  <td><button onclick="document.getElementById('import_zip').value=
+  document.getElementById('zip_new').value" type="button">&laquo; copy</button></td>
+  <td id="zip_preview"><input type="text" id="zip_new"></td>
+</tr>
+<tr>
+  <th>Phone:</th>
+  <td>
+    <input type="text" id="import_phone" name="import[phone]" size="30" value="<%= @import.phone.length < 9 ? "435-" + @import.phone : @import.phone %>" />
+    <%# form.text_field :phone %>
+  </td>
+  <td><button onclick="document.getElementById('import_phone').value=
+  document.getElementById('phone_new').value" type="button">&laquo; copy</button></td>
+  <td id="phone_preview"><input type="text" id="phone_new"></td>
+</tr>
+<tr>
+  <th>Keywords:</th>
+  <td>
+    <input type="text" id="import_keywords" name="import[keywords]" size="30" value="<%= @import.keywords %>" />
+  </td>
+  <td><button onclick="document.getElementById('import_keywords').value=
+  document.getElementById('keywords_new').value" type="button">&laquo; copy</button></td>
+  <td id="keywords_preview"><input type="text" id="keywords_new"></td>
+</tr>
+<tr>
+  <td> </td>
+  <td><%= submit_tag 'Merge to live record =>', {:name => 'merge', :onclick => 'return confirm("This will merge the selected record to the live database.\n\n Are you sure you want to continue?");' } %> 
+    <span id="listing_id"> </span><br/>
+    <%= submit_tag 'Create New', {:name => 'new', :onclick => 'return confirm("This will create a new record\n\nAre you sure you want to continue?");' } %> <span class="help">or <%= link_to 'cancel', :action => 'list' %></span></td>
+  <td> </td>
+</tr>
+</table>
+<% end -%>
+
+</td>
+<td>
+
+</td></tr></table>
+
+<p>
+  <a href="http://www.google.com/search?q=<%= @google_search %>" target="_blank">Lookup on Google</a>
+</p>
+
+<h2>Possible Matches:
+<span style="font-size:11px; color:#666; font-weight:normal;">(<strong>Search Text:</strong> 
+  <em>business:</em> <%= @business_match %> | 
+  <em>address:</em> <%= @address_match %> | 
+  <em>phone:</em> <%= @phone_match %>)</span></h2>
+
+<p style="font-size:11px; color:#666;">
+<%= image_tag 'action_stop.gif' %>: This listing has been imported &nbsp;
+<%= image_tag 'star_gold.png' %>: This listing has already been claimed</p>
+
+<% if @matches.nil? %>
+No matches found in existing database.
+<% else %>
+<table class="index">
+<tr>
+  <th></th>
+  <th>Business</th>
+  <th>Address</th>
+  <th>City</th>
+  <th>Zip</th>
+  <th>Phone</th>
+</tr>
+<% @matches.each do |listing| %>
+<tr>
+  <td>
+    <%= image_tag 'action_stop.gif', {:title => 'Already imported'} unless listing.imported_on.nil? %>
+    <%= image_tag 'star_gold.png', {:title => 'Listing claimed'} unless nil_or_zero(listing.user_id) %>
+  </td>
+  <td><%= link_to_remote listing.business, :url => {:action => "preview", :id => listing.id} %> 
+    [<%= link_to 'view', {:controller => '/listings', :action => 'show', :id => listing.id}, {:target => '_blank'} %>]</td>
+  <td><%= listing.address %></td>
+  <td><%= listing.city %></td>
+  <td><%= listing.zip %></td>
+  <td><%= listing.phone %></td>
+</tr>
+<% end %>
+</table>
+<% end %>

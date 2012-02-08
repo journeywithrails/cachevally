@@ -1,0 +1,34 @@
+<%= render :partial => 'shared/ad_vertical_banner' %>
+
+<h2>Reviews &amp; Comments</h2>
+
+<% if @listing.comments.size > 0 -%>
+<h3><a name="comments"><%= pluralize(@listing.comments.count, "review") %></a></h3>
+<% else -%>
+<h3><a name="comments">No reviews yet</a></h3>
+<% end -%>
+<div id="commentList">
+<%= render(:partial => 'comment', :collection => @listing.comments) %>
+</div>
+<hr/>
+
+<% if user_logged_in? -%>
+<h3 id="comment_title">Add Your Own Review or Comment:</h3>
+<div id="comment_error">
+  <%= error_messages_for 'comment' %>
+</div>
+<%= form_remote_tag :url => {:action => 'add_comment', :id => @listing.id},
+                    :update => 'commentList', :position => 'bottom',
+                    :complete => "document.getElementById('comment_body').value = ''",
+                    :html => {:id => 'comment_form'} %>
+  <p class="help">(<%= link_to 'Textile',
+               {:controller => 'about', :action => 'textile'},
+               {:onclick => "window.open(this.href, 'popupwindow', 'width=300,height=440,scrollbars,resizable'); return false;"} %>
+  formatting is allowed.)<br/>
+  <%= text_area 'comment', 'body', :rows => '8', :cols => '55' %></p>
+  <input type="submit" name="submit" id="form-submit-button" value=" Add Comment " class="button" />
+</form>
+<% else -%>
+<p>Please <%= link_to 'login', :controller => 'account', :action => 'login' %> to leave
+your own review.</p>
+<% end -%>

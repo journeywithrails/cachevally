@@ -1,0 +1,15 @@
+<% if user_logged_in? and ( is_admin? or (@listing.user_id == @user.id and @listing.editor_approved?) ) -%>
+<div id="new-item-form" style="width:450px;">
+
+<h3>Add Special</h3>
+
+<a name="special"></a>
+<%#= form_tag( { :controller => 'specials', :action => 'create', :id => @listing }, :multipart => true )%>
+<% form_for :special, 
+            :url  => { :controller => :specials, :action => :create, :id => @listing }, 
+            :html => { :class => 'my_form', :multipart => true } do |form| %> 
+<%= render :partial => '/listings/special_form', :locals => { :form => form } %>
+<% end %>
+
+</div>
+<% end -%>

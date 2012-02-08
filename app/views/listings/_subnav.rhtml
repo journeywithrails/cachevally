@@ -1,0 +1,33 @@
+<div id="subnav">
+<ul>
+<% if @listing.is_unclaimed? %>
+  <li <% if @selected == 'welcome' %>class="active"<% end %>><%= link_to 'Welcome', :subaction => '', :id => @listing %></li>
+<% end %>  
+<% if @listing.show_about? -%>
+  <li <% if @selected == 'about' %>class="active"<% end %>><%= link_to 'About', :subaction => '',  :id => @listing %></li>
+<% end -%>
+<% if @listing.show_services? -%>
+  <li <% if @selected == 'services' %>class="active"<% end %>><%= link_to 'Services', :subaction => 'services',  :id => @listing %></li>
+<% end -%>
+<% if @listing.show_hours? -%>
+  <li <% if @selected == 'hours' %>class="active"<% end %>><%= link_to 'Hours', :subaction => 'hours',  :id => @listing %></li>
+<% end -%>
+<% if @listing.show_menu? -%>
+  <li <% if @selected == 'menu' %>class="active"<% end %>><%= link_to 'Menu', :subaction => 'menu',   :id => @listing %></li>
+<% end -%>
+<% if @listing.show_brochure? -%>
+  <li <% if @selected == 'brochure' %>class="active"<% end %>><%= link_to 'Brochure', :subaction => 'brochure',   :id => @listing %></li>
+<% end -%>
+<% if @listing.show_images? -%>
+  <li <% if @selected == 'images' %>class="active"<% end %>><%= link_to 'Images', :subaction => 'images', :id => @listing %></li>
+<% end -%>
+<% if @listing.show_specials? -%>
+  <li <% if @selected == 'specials' %>class="active"<% end %> id="specials-tab"><%= link_to 'Specials', :subaction => 'specials', :id => @listing %></li>
+<% end -%>
+<% if @listing.show_map? -%>
+  <li <% if @selected == 'map' %>class="active"<% end %>><%= link_to 'Map', :subaction => 'map',    :id => @listing %></li>
+<% end -%>
+  <li <% if @selected == 'reviews' %>class="active"<% end %>><%= link_to 'Reviews', :subaction => 'reviews', :id => @listing %></li>
+</ul>
+<div class="clear">&nbsp;</div>
+</div>

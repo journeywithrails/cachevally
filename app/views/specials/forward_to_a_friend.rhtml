@@ -1,0 +1,50 @@
+<h1>Forward To A Friend</h1>
+
+<p>Use the form below to forward information about this coupon/special to one
+  or more friends. Rest assured that your friend&#8217;s email addresses will
+  not be used to any purpose other than sending this notice.</p>
+
+<fieldset id="coupon_form">
+<% form_for :friend, @friend, :url => { :action => "email_special" } do |f| %>
+<%= f.hidden_field :special_id, {:value => @special.id} %>
+
+<h3>Coupon/Special</h3>
+<p>Brought to you by: <strong> <%= link_to @listing.business, :controller => 'listings', :action => 'show', :id => @listing.id %></strong></p>
+
+<% has_image = !(@special.image.nil? or @special.image == '') -%>
+<div class="coupon" style="width:600px;">
+  <% if has_image -%>
+  <%= link_to(
+      image_tag(
+        url_for_file_column('special', 'image', 'thumb'), {:class => 'thumb'} ),
+      url_for(:controller => 'listings', :action => 'show', :subaction => 'specials', :id => @special.listing ) ) -%>
+  <% end -%>
+  <div class="cost">&nbsp;<%= @special.price %></div>
+  <h3 style="color:black;"><%= @special.title %></h3>
+  <span class="description"><%= @special.description %></span><br/>
+</div>
+
+<table>
+<tr>
+  <th>Friend's Name:</th>
+  <td><%= f.text_field :name, {:class => 'txt_md'} %></td>
+</tr>
+<tr>
+  <th>Friend's Email:</th>
+  <td><%= f.text_field :email, {:class => 'txt_md'} %></td>
+</tr>
+<tr>
+  <th style="font-weight:normal">My Name:</th>
+  <td><%= f.text_field :sender_name, {:class => 'txt_md'} %></td>
+</tr>
+<tr>
+  <th style="font-weight:normal">My Email:</th>
+  <td><%= f.text_field :sender_email, {:class => 'txt_md'} %></td>
+</tr>
+<tr>
+  <td></td>
+  <td><%= submit_tag 'Send Email' %></td>
+</tr>
+</table>
+<% end %>
+</fieldset>

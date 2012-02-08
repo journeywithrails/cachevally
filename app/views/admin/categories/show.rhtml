@@ -1,0 +1,15 @@
+<h1>Category</h1>
+
+<table class="fieldset">
+<tr>
+  <th><label for="category_name">Name</label></th>
+  <td><%= @category.name %></td>
+</tr>
+<tr>
+  <th>Code</th>
+  <td><%= @category.code %></td>
+</tr>
+</table>
+
+<p><%= link_to 'Edit', :action => 'edit', :id => @category %> |
+<%= link_to 'Back', :action => 'list' %></p>

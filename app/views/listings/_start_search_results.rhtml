@@ -1,0 +1,44 @@
+<% if @results == nil %>
+<% elsif @results.empty? %>
+<div>
+  <p>Sorry, no results were found for: "<strong><%=h @phrase %></strong>".</p>
+</div>
+<% elsif @number_match == 0 %>
+	<div><p>Number of matches was zero.</p></div>
+<% elsif @phrase.empty? %>
+  <div><p>Phrase was empty!</p></div>
+<% elsif @phrase.gsub(/' '/, '') == '' %>
+  <div><p>Phrase chomped to nothing.</p></div>
+<% else %>
+
+<div>
+  <p>Found (<%= @number_match %> <% if @number_match == 1 %>match<% else %>matches<% end %>)
+    for "<strong><%=h @phrase %></strong>"
+</div>
+
+<div class="start-results">
+  <% for @result in @results %>
+<div class="listing">
+
+	<div class="claim_listing">
+<% if @result.user_id == 0 or @result.user_id == nil -%>
+		<%= link_to(image_tag('btn_claim_listing.png', :border => '0'), :controller => 'listings', :action => 'claim_listing', :id => @result) %>
+<% else -%>
+		<%= image_tag 'btn_claimed.png' %>
+<% end -%>
+	</div>
+
+	<div class="detail">
+	<h1><%= link_to @result.business, :action => 'show', :id => @result %></h1>
+	<p>
+	  <% if @result.phone? -%><span style="color:#999;font-weight:bold"><%= @result.format_phone(@result.phone) %></span><% end -%>
+	  <% if @result.address? -%><%= @result.address %><br/><% end -%>
+	  <% if @result.city? %><%= @result.city %>, <% end %><%= @result.state %> <%= @result.zip %><br/>
+	</p>
+	</div><!-- // div.detail -->
+
+<div class="clear">&nbsp;</div>
+</div><!-- // div.listing -->
+  <% end %>
+</div><!-- // start-results -->
+<% end %>

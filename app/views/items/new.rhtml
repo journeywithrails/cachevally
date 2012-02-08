@@ -1,0 +1,21 @@
+<h1>Add Image</h1>
+
+<%= error_messages_for :item %>
+
+<% form_for( :item, :url  => {:controller => '/items', :action => 'create'}, 
+                    :html => { :multipart => true }) do |f| -%>
+  <table class="fieldset">
+  <tr>
+    <th><label for="item">Image File</label></th>
+    <td><%= f.file_field :uploaded_data %></td>
+  </tr>
+  <tr>
+    <th><label for "item_caption">Caption</label></th>
+    <td><%= f.text_field :caption %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><%= submit_tag 'Create' %></td>
+  </tr>
+  </table>
+<% end -%>

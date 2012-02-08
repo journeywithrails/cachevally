@@ -1,0 +1,31 @@
+<h1>Contact Us</h1>
+
+<p>Feel free to contact us with any questions or comments you
+may have. Please fill-out the form below, and we will respond to your inquiry
+as soon as possible.</p>
+
+<p>(Please ensure your email address is correct or we will have no way of
+contacting you.)</p>
+
+<%= start_form_tag :action => 'send_email' %>
+
+<table>
+<tr>
+  <th><label for="name">Name:</label></th>
+  <td><%= text_field_tag "name", nil, :class => "text txt_lg" %></td>
+</tr>
+<tr>
+  <th><label for="email">Email:</label></th>
+  <td><%= text_field_tag "email", nil, :class => "text txt_lg" %></td>
+</tr>
+<tr>
+  <th><label for="comments">Comments:</label></th>
+  <td><%= text_area_tag "comments", nil, :class => "textarea area_lg" %></td>
+</tr>
+<tr>
+  <td></td>
+  <td><%= submit_tag "Submit" %></td>
+</tr>
+</table>
+
+<%= end_form_tag %>

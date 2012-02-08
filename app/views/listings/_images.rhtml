@@ -1,0 +1,102 @@
+<%= render :partial => 'shared/ad_vertical_banner' %>
+
+<h2>Images</h2>
+
+<%= render :partial => 'images_gallery' %>
+
+<%#= render :partial => 'add_new_image', :locals  => {:img_type => 'GENERAL'} %>
+<%= render :partial => 'add_new_asset', :locals  => {:img_type => 'GENERAL'} %>
+
+<%
+=begin %>
+<div id="thumbs_nav" style="width:450px;">
+<% if @images %>
+  <% @images.each do |@img| -%>
+<div class="img-float">
+<div class="img-shadow">
+  <a href="<%= url_for_file_column('img', 'image') %>" rel="lightbox[img]" class="plain" title="<%=h @img.caption %>">
+      <%= image_tag( url_for_file_column('img', 'image', 'thumb') ) %></a></div>
+  <p><%= @img.caption %>
+  <% if user_logged_in? and ( is_admin? or (@listing.user_id == @user.id and @listing.editor_approved?) ) -%>
+  <%= link_to '[x]', { :action => 'destroy_asset', :id => @img.id, :listing_id => @listing.id },
+      :confirm => 'Are you sure you want to delete this image?',
+      :class => 'plain',
+      :post => 'true' %>
+  <% end -%></p>
+</div>
+  <% end -%>
+<% end -%>
+<div style="clear:left">&nbsp;</div>
+</div>
+<%
+=end %>
+
+<%
+=begin %>
+<% if !@listing.image1.nil? -%>
+<div class="img-float">
+<div class="img-shadow">
+  <a href="<%= url_for_file_column('listing', 'image1') %>" rel="lightbox[img]" class="plain" title="<%=h @listing.image1_caption %>">
+    <%= image_tag( url_for_file_column('listing', 'image1', 'thumb') ) %></a></div>
+<p><%= @listing.image1_caption %></p>
+</div>
+<% end -%>
+
+<% if !@listing.image2.nil? -%>
+<div class="img-float">
+<div class="img-shadow">
+  <a href="<%= url_for_file_column('listing', 'image2') %>" rel="lightbox[img]" class="plain" title="<%=h @listing.image2_caption %>">
+    <%= image_tag( url_for_file_column('listing', 'image2', 'thumb') ) %></a></div>
+<p><%= @listing.image2_caption %></p>
+</div>
+<% end -%>
+
+<% if !@listing.image3.nil? -%>
+<div class="img-float">
+<div class="img-shadow"><a href="<%= url_for_file_column('listing', 'image3') %>" rel="lightbox[img]" class="plain" title="<%=h @listing.image3_caption %>">
+  <%= image_tag( url_for_file_column('listing', 'image3', 'thumb') ) %></a></div>
+<p><%= @listing.image3_caption %></p>
+</div>
+<% end -%>
+
+<% if !@listing.image4.nil? -%>
+<div class="img-float">
+<div class="img-shadow"><a href="<%= url_for_file_column('listing', 'image4') %>" rel="lightbox[img]" class="plain" title="<%=h @listing.image4_caption %>">
+  <%= image_tag( url_for_file_column('listing', 'image4', 'thumb') ) %></a></div>
+<p><%= @listing.image4_caption %></p>
+</div>
+<% end -%>
+<%
+=end %>
+
+<%
+=begin %>
+<% if user_logged_in? and ( is_admin? or (@listing.user_id == @user.id and @listing.editor_approved?) ) -%>
+  <% if @images.size >= @max_images -%>
+<p style="color:blue;font-size:90%;"><em>Image limit reached. No more images can be added.</em></p>
+  <% else -%>
+<h3>Add Image</h3>
+<%= form_tag( { :action => 'create_asset', :id => @listing }, :multipart => true) %>
+<%= hidden_field 'asset', 'listing_id', :value => @listing.id %>
+<%= hidden_field 'asset', 'asset_type', :value => 'GENERAL' %>
+<table id="add_image">
+<tr>
+  <th>Image:</th>
+  <td><%= file_column_field 'asset', 'image' %></td>
+</tr>
+<tr>
+  <th>Caption:</th>
+  <td><%= text_field 'asset', 'caption' %></td>
+</tr>
+<tr>
+  <td></td>
+  <td><%= submit_tag 'Submit' %></td>
+</tr>
+</table>
+<%= end_form_tag %>
+  <% end -%>
+<% end -%>
+
+<%
+=end %>
+

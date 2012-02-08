@@ -1,0 +1,4 @@
+<div class="review">
+<strong><%= abstract(review.listing.business,40) %></strong><br/>
+<%= link_to abstract(review.body, 60), :action => 'show', :id => review.listing.id, :subaction => 'reviews' %><br/>
+</div>

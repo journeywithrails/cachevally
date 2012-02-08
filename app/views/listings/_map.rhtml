@@ -1,0 +1,27 @@
+<div id="driving_directions">
+<p><strong>Driving Directions</strong></p>
+<p>Enter starting address:<br/>
+<span class="help">eg. "1 Main St, Logan, UT"</span><br/>
+<input type="text" name="start_addr" id="start_addr"><br/>
+<input type="button" onclick="get_directions();" value="Get Directions" /></p>
+</p></div>
+
+<%= render :partial => 'shared/ad_vertical_banner' %>
+
+<h2>Map</h2>
+
+<!--
+Map Address:
+[<%= @addr %>]
+-->
+
+<p><%= flash[:map_error] %></p>
+
+<% if @map -%>
+<p class="help"><strong>Instructions:</strong> Click and drag to move map around.
+Use "+" and "-" to zoom in and out.</p>
+
+<%= @map.div %>
+<% end -%>
+
+<div id="notice" style="display:none;"></div>

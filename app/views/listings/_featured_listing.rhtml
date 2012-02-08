@@ -1,0 +1,11 @@
+<% @listing = featured_listing %>
+<div class="featured_listing">
+<div class="thumb">
+<% if !@listing.image.nil? -%>
+<%= link_to( image_tag( url_for_file_column('listing', 'image', 'thumb') ), :action => 'show', :id => @listing.id ) %>
+<% else -%>
+<% image_tag 'blank_75.gif' %>
+<% end -%>
+</div>
+<p><%= link_to @listing.business, :action => 'show', :id => @listing.id %></p>
+</div>

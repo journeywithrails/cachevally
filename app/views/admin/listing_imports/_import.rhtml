@@ -1,0 +1,11 @@
+<tr>
+  <td>
+<% if nil_or_zero(import.listing_id) -%>
+  <%= link_to import.business, :action => 'edit', :id => import.id %>
+<% else -%>
+  <%= image_tag 'accept.gif' %> <%= import.business %>
+<% end -%></td>
+  <td><%= import.address %></td>
+  <td><%= import.phone %></td>
+  <td><%= link_to import.listing_id.to_s, {:controller => '/listings', :action => 'show', :id => import.listing_id}, {:target => '_blank'} unless nil_or_zero(import.listing_id) %></td>
+</tr>

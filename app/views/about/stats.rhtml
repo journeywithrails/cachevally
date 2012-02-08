@@ -1,0 +1,16 @@
+<h1>Stats: Most Viewed Listings</h1>
+
+<h3>All</h3>
+
+<table class="index">
+<tr>
+  <th style="width:50px;">Hits</th>
+  <th>Business</th>
+</tr>
+<% @listings.each do |listing| -%>
+<tr>
+  <td><%= listing.hits.count.to_s %></td>
+  <td><%= link_to listing.business, :controller => 'listings', :action => 'show', :id => listing %></td>
+</tr>
+<% end -%>
+</table>

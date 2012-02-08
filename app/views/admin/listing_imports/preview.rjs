@@ -1,0 +1,12 @@
+# page.replace_html 'merge_id2', '<strong>ID: ' + @listing.id.to_s + '</strong>'
+page.replace_html 'merge_id', @listing.id.to_s
+page.replace_html 'listing_id', '<input id="import_listing_id" name="import[listing_id]" size="5" type="text" value="' + @listing.id.to_s + '" />'
+page.replace_html 'business_preview', '<input type="text" id="business_new" value="' + @listing.business + '" size="40">'
+page.replace_html 'address_preview', '<input type="text" id="address_new" value="' + @listing.address + '" size="40">'
+page.replace_html 'address2_preview', '<input type="text" id="address2_new" value="' + @listing.address2 + '" size="40">' unless @listing.address2.nil?
+page.replace_html 'city_preview', '<input type="text" id="city_new" value="' + @listing.city + '" size="40">' unless @listing.city.nil?
+page.replace_html 'state_preview', '<input type="text" id="state_new" value="' + @listing.state + '">' unless @listing.state.nil?
+page.replace_html 'zip_preview', '<input type="text" id="zip_new" value="' + @listing.zip + '">' unless @listing.zip.nil?
+page.replace_html 'phone_preview', '<input type="text" id="phone_new" value="' + @listing.phone + '">' unless @listing.phone.nil?
+page.replace_html 'keywords_preview', '<input type="text" id="keywords_new" value="' + @listing.keywords + '">' unless @listing.keywords.nil?
+page.replace_html 'image_preview', image_tag(url_for_file_column('listing', 'image'), :class => 'biz_thumb') unless @listing.image.nil?

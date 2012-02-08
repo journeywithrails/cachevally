@@ -1,0 +1,9 @@
+<h1>Add Special</h1>
+
+<h3>From <%= @listing.business %></h3>
+
+<% form_for :special, 
+            :url  => { :controller => :specials, :action => :create, :id => @listing }, 
+            :html => { :class => 'my_form', :multipart => true } do |form| %> 
+<%= render :partial => '/listings/special_form', :locals => { :form => form } %>
+<% end %>

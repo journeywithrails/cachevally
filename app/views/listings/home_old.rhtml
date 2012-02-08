@@ -1,0 +1,202 @@
+<script type="text/javascript">
+function disableEnter(e) {
+  var keynum
+  if (window.event) { // IE
+    keynum = e.keyCode
+  } else if (e.which) { // Netscape/Firefox/Opera
+    keynum = e.which
+  }
+  if (keynum == 13) { return false; } else { return true; }
+}
+</script>
+
+<%= render :partial => 'featured_special'%>
+
+<table border="0" class="results" style="clear:left;">
+<tr>
+  <td style="vertical-align:top; width:200px;">
+
+<div class="roundcont" style="">
+
+  <div class="roundtop">
+	<img src="/images/tl.gif" alt="" 
+	  width="10" height="10" class="corner" 
+	  style="display: none" />
+  </div>
+
+  <h1>Announcements</h1>
+  <p>Now Rate Businesses.  Look for the Star Rating System.</p>
+  <p><img src="/images/ratings_tb.jpg" alt="Now You Can Rate Businesses. Look for the Star Rating System."/></p>
+  <hr/>
+  <h2>What is this?</h2>
+
+  <p>An online business directory detailing more than 3000 businesses in
+Cache Valley.</p>
+
+  <h2>What can I do here?</h2>
+
+  <p>Find business info&#8230;</p>
+
+	<ul>
+		<li>Addresses</li>
+		<li>Phone Numbers</li>
+		<li>Hours of Operation</li>
+		<li>Products &#38; Services</li>
+		<li>Specials/Coupons</li>
+		<li>and more!</li>
+	</ul>
+  	
+  <p>We are the most comprehensive and up-to-date business directory in the Valley. It&#8217;s faster than the phone book with loads more information to help you find what you are looking for.</p>
+
+  <h2>How to start</h2>
+
+  <p>Enter a business name, product, service or category in the Live Search Box.</p>
+
+  <h2>Learn more</h2>
+  <p>Take a <%= link_to 'site tour', :controller => "tour" %>.</p>
+
+  <h2>Like to stay up to date?</h2>
+  <p>Sign up for our <a href="http://list-manage.com/subscribe.phtml?id=9dd61fbb53">e-Newsletter</a>.
+  It&#8217;s free and you can unsubscribe at any time.</p>
+
+  <h2>Business Owners</h2>
+  <p>Add or update a listing for your business.<br/>
+  <%= link_to "Submit your listing now", :controller => "update" %></p>
+  
+  <h2>Like this site?</h2>
+  <p><%= link_to "Tell a friend", :action => "tell_a_friend" %> about it.</p>
+  
+  <div class="roundbottom">
+	<img src="/images/bl.gif" alt="" 
+	  width="10" height="10" class="corner" 
+	  style="display: none" />
+  </div>
+
+</div><!-- // .roundcont -->
+
+  </td>
+  <td style="vertical-align:top;">
+
+<div id="search-form">
+
+<%= start_form_tag( {:action     => ""},
+                    {:onSubmit   => "Element.show('spinner');"} ) %>                   
+
+<div style="float:right; margin-top:18px;"><%= image_tag 'try_me.gif' %>
+
+	<!-- // Newly Opened Businesses -->
+	<div style="margin:0 0 0 28px; padding:0; width: 80px">
+	<h3 style="margin:0 0 10px 0; padding:0; border-bottom: 2px dotted #ccc">Newly Opened</h3>
+		
+	<div class="listing">
+	<a href="http://www.cachevalleysearch.com/listings/show/3599" id="result">
+	<img src="http://cachevalleysearch.com/system/assets/0000/0448/blackstone_restaurant_dining_table_mini.jpg" class="thumb" /></a>
+	<h1 style="margin:0; padding: 0; text-align: center;"><a href="http://www.cachevalleysearch.com/listings/show/3599" id="result">Blackstone Restaurant</a></h1>
+	</div>	
+	
+	<div class="clear" style="margin: 0 0 10px 0">&nbsp;</div>
+	
+	<div class="listing">
+	<a href="http://www.cachevalleysearch.com/listings/show/4062" id="result">
+	<img src="http://www.cachevalleysearch.com/system/assets/0000/0590/petersens_country_store_mini.jpg" class="thumb" /></a>
+	<h1 style="margin:0; padding: 0; text-align: center;"><a href="http://www.cachevalleysearch.com/listings/show/4062" id="result">Petersen's Country Store</a></h1>
+	</div>
+	
+	<div class="clear" style="margin: 0 0 10px 0">&nbsp;</div>
+	
+	<div class="listing" style="">
+	<a href="http://www.cachevalleysearch.com/listings/show/3493" id="result">
+	<img src="http://www.cachevalleysearch.com/system/assets/0000/0659/takeawaygourmet_logo_mini.jpg" class="thumb" /></a>
+	<h1 style="margin:0; padding: 0; text-align: center;"><a href="http://www.cachevalleysearch.com/listings/show/3493" id="result">Take-Away Gourmet</a></h1>
+	</div>
+	
+	<div class="clear" style="margin: 0 0 10px 0">&nbsp;</div>	
+	
+	<div class="listing" style="">
+	<a href="http://www.cachevalleysearch.com/listings/show/4052" id="result">
+	<img src="http://cachevalleysearch.com/system/assets/0000/0656/big_five_sports_mini.jpg" class="thumb" /></a>
+	<h1 style="margin:0; padding: 0; text-align: center;"><a href="http://www.cachevalleysearch.com/listings/show/4052" id="result">Big 5 Sporting Goods</a></h1>
+	
+	</div>
+	
+	</div><!-- // CLOSE Newly Opened Businesses -->
+
+</div>
+
+<%
+=begin %>
+<% if @special -%>
+<!-- ** FEATURED SPECIAL ** -->
+<div id="featured_special">
+  <div id="featured_title">Featured Special</div>
+  <div id="featured_body">
+    <span class="title"><%= @special.title %></span><br/>
+    <span class="cost"><%= free_when_zero @special.cost %></span><br/>
+    <% if @has_image -%>
+    <%= link_to(
+        image_tag(
+          url_for_file_column('special', 'image', 'thumb'), {:class => 'thumb'} ),
+        url_for(:controller => 'specials', :action => 'show', :id => @special.id), :class => 'plain' ) -%><br/>
+    <% end -%>
+    <span class="label">From:</span> <span class="business"><%=h @special.listing.business %></span><br/>
+    <%= link_to(image_tag('arrow_get_it.png', :class => 'arrow'), {:controller => 'specials', :action => 'show', :id => @special.id}, {:class => 'plain'}) %>
+  </div>
+</div>
+<% end -%>
+<%
+=end %>
+
+<h2>Live Search:</h2>
+<input id="searchtext" name="searchtext" onKeyPress="return disableEnter(event);" type="text" />&nbsp;<img alt="spinner" id="spinner" src="/images/spinner.gif" style="display:none;" /><br/>
+<span id="searchhelp"><strong>eg. "Shaffer's Bakery" or "apartments"</strong><br/>
+  (Enter at least 3 characters to search)</span><br/>
+
+<%
+=begin %>
+<% if @special -%>
+<!-- ** FEATURED SPECIAL ** -->
+<div id="featured_special">
+  <div id="featured_title">Featured Special</div>
+  <div id="featured_body">
+
+    <% if @has_image -%>
+    <div style="float:left; margin-right: 4px;">
+    <%= link_to(
+        image_tag(
+          url_for_file_column('special', 'image', 'mini'), {:class => 'thumb'} ),
+        url_for(:controller => 'specials', :action => 'show', :id => @special.id), :class => 'plain' ) -%><br/>
+    </div>
+    <% end -%>
+
+    <%= link_to(image_tag('arrow_get_it.png', :class => 'arrow'), {:controller => 'specials', :action => 'show', :id => @special.id}, {:class => 'plain'}) %>
+
+    <span class="title"><%= @special.title %></span><br/>
+    <span class="label">From:</span> <span class="business"><%=h @special.listing.business %></span><br/>
+    <span class="cost"><%= free_when_zero @special.cost %></span><br/>
+  </div>
+  <div class="clear">&nbsp;</div>
+</div>
+<% end -%>
+<%
+=end %>
+
+<%= observe_field(:searchtext,
+                  :with => "'phrase='+encodeURIComponent(value)", # pass value in params[:phrase]
+                  :frequency => 0.5,
+                  :update => :search_hits,
+                  :loading => "Element.show('spinner')",
+                  :complete => "Element.hide('spinner')",
+                  :url => { :action => :live_search } ) %>
+<%= end_form_tag %>
+
+<div id="search_hits" style="clear:left;" > </div>
+
+</div><!-- // search-form -->
+
+<a href="http://microsite.coupons.com/gmsa/offers.asp?lgn=0&Uid=51095768&SGN=1001&PID=12629&ZID=yk55&NID=10">
+  <img src="http://www.cachevalleysearch.com/system/files/grocery_coupon_ad.jpg" alt="Grocery Coupons for Cache Valley Utah.  Save Hundreds of Dollars!" /></a>
+<a href="http://microsite.coupons.com/gmsa/offers.asp?lgn=0&Uid=51095768&SGN=1001&PID=12629&ZID=yk55&NID=10">Save Hundreds of Dollars in Groceries! >></a>
+
+  </td>
+</tr>
+</table>

@@ -1,0 +1,6 @@
+
+<% if params[:type] == 'start' -%>
+<%= render :partial => 'start_search_results' %>
+<% else -%>
+<%= render :partial => 'live_search_results' %>
+<% end -%>

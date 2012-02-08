@@ -1,0 +1,48 @@
+<%= render :partial => 'shared/ad_vertical_banner' %>
+
+<table>
+<tr>
+  <td style="width:58%;vertical-align:top;">
+
+<h3>Business Owner</h3>
+
+<p>Learn how you can advertise your business here for FREE.</p>
+
+<p>Add To Your Listing:</p>
+
+<ul>
+	<li>About Us</li>
+	<li>Services</li>
+	<li>Business Hours</li>
+	<li>Brochures</li>
+	<li>Menus</li>
+	<li>Pictures</li>
+	<li>Coupons/Specials</li>
+</ul>
+
+<p>It&#8217;s quick and easy. Start increasing traffic and sales to your business today!</p>
+
+<p><%= link_to 'Get Started &raquo;', :action => 'claim_listing', :id => @listing %></p>
+
+
+  </td>
+  <td style="width:4%;">
+  <td style="width:38%;vertical-align:top;">
+
+  <script type="text/javascript" language="javascript" src="http://www.tkqlhce.com/placeholder-149826517?target=_top&mouseover=N"></script>
+  
+<h3>Site Visitor</h3>    
+    
+<ul>
+  <li><%= link_to "Tell a Friend", :action => "tell_a_friend" %></li>
+  <li><%= link_to 'Site Tour', :controller => 'tour' %></li>
+  <li><a href="http://microsite.coupons.com/gmsa/Offers.asp?lgn=0&Uid=51095768&SGN=1001&PID=12629&ZID=yk55&NID=10">Grocery Coupons</a></li>
+  <li><%= link_to 'New Search', :controller => 'listings', :action => 'list' %></li>
+</ul>
+    
+<h3>Related Links</h3>
+<%= render :partial => 'shared/ad_google_vertical_links' %>
+
+  </td>
+</tr>
+</table>

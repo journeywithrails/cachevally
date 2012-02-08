@@ -1,0 +1,58 @@
+<% # = render :partial => 'featured_special'%>
+
+<a href="http://www.jdoqocy.com/click-3006966-527533807" target="_top">
+<img src="http://www.tqlkg.com/image-3006966-527533807" width="468" height="60" alt="" border="0"/></a>
+
+<br/>
+<h1>Browse By City</h1>
+
+<div class="city_results_nav">
+
+  <div class="city_results_picker">
+
+  <%= start_form_tag :action => 'goto_city' %>
+  <!-- <form action="/listings/list_by_city/" method="post" style="margin:0;padding:0"> -->
+  <input type="hidden" name="letter" value=""/>
+  Display for:
+  <%= select_tag(
+    :city,
+    options_for_select([['-- All --', 'all']] + @cities.map {|c| [c.name, c.name]}, params[:city])
+  )
+  %> <input type="submit" value="Go">
+  <%= end_form_tag -%>
+  </div>
+
+  <div class="letter_nav">
+  [<a href="/listings/list_by_city/<%=params[:city]||='all'%>"<% if params[:letter] == nil %> class = "active"<% end %>>All</a>] 
+  <% ('a'..'z').each do |f| -%>
+  <a href="/listings/list_by_city/<%=params[:city]||='all'%>/<%= f %>"<% if params[:letter] == f %> class = "active"<% end %>><%= f.upcase %></a>
+  <% end -%>
+  </div>
+
+<div class="clear">&nbsp;</div>
+</div><!-- // city_results_nav -->
+
+<%= render :partial => 'shared/paginator', :locals => { :collection => @listings } if @listings.page_count > 1 %>
+
+<table class="index" cellpadding="0" cellspacing="3" border="0">
+<tr>
+  <th>Business Name</th>
+  <th>City</th>
+  <th>Phone</th>
+</tr>
+<% @listings.each do |listing| %>
+<tr>
+<% if listing.is_paid? -%>
+  <td><strong><%= link_to listing.business, :action => 'show', :id => listing %></strong></td>
+<% else -%>
+  <td><%= link_to listing.business, :action => 'show', :id => listing %></td>
+<% end -%>
+  <td><%= listing.city %>&nbsp;</td>
+  <td style="width:125px"><%= listing.format_phone(listing.phone) %>&nbsp;</td>
+</tr>
+<% end -%>
+</table>
+
+<%= render :partial => 'shared/paginator', :locals => { :collection => @listings } if @listings.page_count > 1 %>
+
+<br/><p class="help">(* a maximum of 500 results will be displayed.)</p>

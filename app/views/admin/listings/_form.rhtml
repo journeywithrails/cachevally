@@ -1,0 +1,45 @@
+<%= error_messages_for 'listing' %>
+
+<!--[form:listing]-->
+<p><label for="listing_business">Business Name</label><br/>
+<%= text_field 'listing', 'business'  %></p>
+
+<p><label for="listing_tagline">Tagline</label><br/>
+<%= text_field 'listing', 'tagline'  %></p>
+
+<p><label for="listing_address">Address</label><br/>
+<%= text_field 'listing', 'address'  %></p>
+
+<p><label for="listing_address2">Address2</label><br/>
+<%= text_field 'listing', 'address2'  %></p>
+
+<p><label for="listing_city">City</label><br/>
+<%= text_field 'listing', 'city'  %></p>
+
+<p><label for="listing_state">State</label><br/>
+<%= text_field 'listing', 'state'  %></p>
+
+<p><label for="listing_zip">Zip</label><br/>
+<%= text_field 'listing', 'zip'  %></p>
+
+<p><label for="listing_email">Email</label><br/>
+<%= text_field 'listing', 'email'  %></p>
+
+<p><label for="listing_phone">Phone</label><br/>
+<%= text_field 'listing', 'phone'  %></p>
+
+<p><label for="listing_phone2">Phone2</label><br/>
+<%= text_field 'listing', 'phone2'  %></p>
+
+<h3><label>Current Image</label></h3>
+
+<% if !@listing.image.nil? -%>
+<p><%= image_tag( url_for_file_column('listing', 'image') ) %></p>
+<% end -%>
+
+<p><label class="desc" for="listing_image">Upload New Image</label><br/>
+<%= file_column_field 'listing', 'image' %></p>
+
+<p><%= check_box 'listing', 'active'  %><label for="listing_active">Listing is active</label></p>
+<!--[eoform:listing]-->
+

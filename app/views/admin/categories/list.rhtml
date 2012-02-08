@@ -1,0 +1,20 @@
+<h1>Categories</h1>
+
+<table class="index">
+<tr>
+  <th>Category</th>
+  <th>Code</th>
+  <th>Modify</th>
+</tr>
+<% for category in @categories %>
+<tr>
+  <td class="user"><%= link_to category.name, :action => 'show', :id => category %></td>
+  <td><%= category.code %></td>
+  <td><%= link_to 'Destroy', { :action => 'destroy', :id => category }, :confirm => 'Are you sure?', :post => true %></td>
+</tr>
+<% end %>
+</table>
+
+<br />
+<p><a href="<%= url_for :action => 'new' %>">
+  <img src="/images/btn_add_category.gif" width="124" height="31" alt="Add Category"></a></p>
